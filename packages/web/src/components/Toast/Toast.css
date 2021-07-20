@@ -1,0 +1,21 @@
+.toast {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .6s ease-in-out;
+}
+.toast p {
+    margin: 0;
+}
+.toast .error {
+    background: rgb(201, 108, 127);
+    border: 2px solid crimson;
+    padding: 10px 40px;
+    border-radius: 2em;
+}
+.toast .success {
+    background: rgb(116, 201, 108);
+    border: 2px solid rgb(37, 220, 20);
+    padding: 10px 40px;
+    border-radius: 2em;
+}

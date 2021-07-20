@@ -1,0 +1,25 @@
+.icon {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.icon {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 24px;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  color: var(--bg-secondary);
+  background: white;
+  border: none;
+  outline: none;
+  box-shadow: 2px 2px 10px #131313ad;
+  transition: all 0.3s ease-in-out;
+}
+.icon:hover {
+  box-shadow: 2px 2px 30px #131313ad;
+  background: var(--bg-secondary);
+  color: white;
+}

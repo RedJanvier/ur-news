@@ -102,7 +102,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Additional files
+server/config/config.env
+tmp/
+frontend/
+package-lock.json
+.DS_Store
 .dccache
 .eslintcache
-.vscode/
-package-lock.json

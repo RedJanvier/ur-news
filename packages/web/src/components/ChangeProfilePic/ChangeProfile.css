@@ -1,0 +1,35 @@
+.profile .modal {
+  margin-top: -3rem;
+}
+.profile-preview {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  color: var(--bg-primary);
+  font-size: 4rem;
+  border: 0.5rem solid #fff;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+.profile-preview img {
+  width: 100%;
+}
+.profile .edit-btn {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  position: relative;
+  border-radius: 50%;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  margin: -3rem auto 0 auto;
+}
+.profile input[type="file"] {
+  position: absolute;
+  top: 4rem;
+  height: 10rem;
+  opacity: 0;
+}

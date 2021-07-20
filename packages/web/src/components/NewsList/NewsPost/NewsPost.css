@@ -1,0 +1,130 @@
+.tag {
+  padding: 0.5rem 3rem;
+  background: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  border-radius: 50px;
+  margin: 0.2rem 1rem;
+}
+.tag.school {
+  background: rgb(230, 123, 123);
+}
+.tag.campus {
+  background: rgb(221, 123, 230);
+}
+.tag.department {
+  background: rgb(123, 230, 141);
+}
+.tag.class {
+  background: rgb(123, 218, 230);
+}
+.news-post .on-mine {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.news-post {
+  background: #fefefe;
+  border-radius: 0.4em;
+  box-shadow: 1px 1px 10px var(--bg-primary-transparent);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.news-post .form-control label {
+  font-weight: 400;
+}
+.news-post__controls button:hover {
+  color: rgb(255, 25, 25);
+}
+.news-post__controls button {
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 1.1rem;
+  color: rgb(211, 0, 0);
+  cursor: pointer;
+}
+.news-post__controls li {
+  padding: 0.2rem 1rem;
+}
+.news-post__controls {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+.news-post__header {
+  height: 200px;
+  overflow: hidden;
+}
+.news-post__body .title {
+  font-weight: 600;
+  font-size: 1.2em;
+  text-transform: capitalize;
+}
+.news-post__header img,
+.news-post__footer .author-img img {
+  width: 100%;
+}
+.news-post__body .form-control {
+  width: 100%;
+  margin: 1em 0.1em;
+}
+.news-post__body .btn,
+.news-post__body .btn-light,
+.news-post__body input[type="text"],
+.news-post__body input[type="submit"],
+.news-post__body input[type="password"] {
+  width: 100%;
+  font-size: 1em;
+  padding: 1em;
+  margin: 0.4em 0;
+  border-radius: 10px;
+  border: 2px solid var(--text-secondary);
+}
+.news-post__body .body,
+.news-post__footer {
+  padding: 0.5em 1em;
+}
+.news-post__footer {
+  display: flex;
+}
+.news-post__footer .clearfix {
+  flex: 1;
+}
+.news-post__footer a {
+  text-decoration: none;
+}
+.news-post__footer .author-img {
+  width: 3em;
+  height: 3em;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.news-post__footer .author-info h4,
+.news-post__footer .author-info p {
+  margin: 0;
+  padding: 0 1em;
+}
+.news-post__footer .author-info p {
+  color: #818181;
+}
+.news-post .btn {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  padding: 0 1.2em;
+}
+.news-post a:hover {
+  color: inherit;
+}
+.news-post .btn-light {
+  text-transform: capitalize;
+}
+.news-post__body input:focus {
+  border-color: var(--bg-primary);
+}

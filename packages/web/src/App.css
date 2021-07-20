@@ -1,0 +1,58 @@
+@font-face {
+  font-size: normal;
+  font-weight: normal;
+  font-family: "BOOKMAN OLD STYLE";
+  src: url("./BOOKMAN\ OLD\ STYLE.ttf");
+}
+* {
+  font-family: "BOOKMAN OLD STYLE";
+  font-weight: 200;
+  box-sizing: border-box;
+}
+:root {
+  --bg-primary: #272a5a;
+  --bg-primary-transparent: #272a5a70;
+  --bg-secondary: #545cd4;
+  --text-primary: #1c1c34;
+  --text-secondary: #e2e4ee;
+}
+body {
+  background: var(--bg-primary);
+  position: relative;
+}
+.btn {
+  color: #fff;
+  background: var(--bg-primary);
+}
+.btn:hover {
+  color: #fff;
+  background: var(--bg-secondary);
+}
+.btn-light {
+  color: white;
+  background: var(--bg-secondary);
+}
+.btn-light:hover {
+  background: var(--text-primary);
+}
+.page {
+  margin-top: 6rem;
+}
+a {
+  text-decoration: none;
+  color: var(--bg-primary);
+}
+a:hover {
+  color: var(--bg-secondary);
+}
+@media screen and (max-width: 1208px) {
+  .page {
+    margin-top: 10rem;
+  }
+}
+@media screen and (max-width: 845px) {
+  .page {
+    margin: 0;
+    padding-top: 4rem;
+  }
+}
