@@ -7,11 +7,9 @@
       "message": "chore(release): publish %s"
     },
     "version": {
-      "push": true,
-            "allowBranch": "main",
+      "allowBranch": ["main", "develop"],
       "conventionalCommits": true,
-      "createRelease": "github",
-      "exact": true
+      "createRelease": "github"
     }
   },
   "npmClient": "yarn",

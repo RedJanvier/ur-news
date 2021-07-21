@@ -9,6 +9,7 @@
     "lerna": "^4.0.0"
   },
   "scripts": {
+    "new-version": "lerna version",
     "start:server": "lerna run start --scope=@ur-news/server",
     "build": "lerna run build --stream --parallel",
     "start": "lerna run start --stream --parallel",
