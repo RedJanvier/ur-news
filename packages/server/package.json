@@ -1,6 +1,6 @@
 {
   "name": "@ur-news/server",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "UR News Poster server",
   "main": "src/app.js",
   "scripts": {
@@ -40,6 +40,5 @@
     "socket.io": "^3.1.0",
     "socketio-jwt-auth": "^0.2.1",
     "supertest": "^4.0.2"
-  },
-  "devDependencies": {}
+  }
 }
