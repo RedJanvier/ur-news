@@ -5,11 +5,6 @@
     "publish": {
       "allowBranch": ["main", "develop"],
       "message": "chore(release): publish %s"
-    },
-    "version": {
-      "allowBranch": ["main", "develop"],
-      "conventionalCommits": true,
-      "createRelease": "github"
     }
   },
   "npmClient": "yarn",
