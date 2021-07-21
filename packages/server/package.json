@@ -1,6 +1,6 @@
 {
   "name": "@ur-news/server",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "UR News Poster server",
   "main": "src/app.js",
   "scripts": {
