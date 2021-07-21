@@ -106,3 +106,4 @@ dist
 .eslintcache
 .vscode/
 package-lock.json
+yarn.lock

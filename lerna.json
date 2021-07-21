@@ -1,13 +1,17 @@
 {
   "packages": ["packages/*"],
-  "version": "independent",
+  "version": "0.0.1",
   "command": {
     "publish": {
       "allowBranch": ["main", "develop"],
       "message": "chore(release): publish %s"
     },
     "version": {
-      "push": true
+      "push": true,
+            "allowBranch": "main",
+      "conventionalCommits": true,
+      "createRelease": "github",
+      "exact": true
     }
   },
   "npmClient": "yarn",
