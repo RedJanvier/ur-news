@@ -11,7 +11,7 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "new-version": "lerna version --conventional-commits --yes",
+    "release": "lerna version --conventional-commits --yes",
     "start:server": "lerna run start --scope=@ur-news/server",
     "build": "lerna run build --stream --parallel",
     "start": "lerna run start --stream --parallel",
