@@ -6,13 +6,20 @@
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "nodemon": "^2.0.12"
   },
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "new-version": "lerna version --conventional-commits --yes",
     "start:server": "lerna run start --scope=@ur-news/server",
     "build": "lerna run build --stream --parallel",
     "start": "lerna run start --stream --parallel",
     "test": "lerna run test"
+  },
+  "dependencies": {
+    "@ur-news/locations": "file:packages/locations",
+    "@ur-news/server": "file:packages/server",
+    "@ur-news/web": "file:packages/web"
   }
 }

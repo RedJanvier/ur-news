@@ -1,0 +1,14 @@
+{
+  "name": "@ur-news/locations",
+  "version": "0.0.3",
+  "description": "> TODO: description",
+  "keywords": [
+    "ur-news-locations"
+  ],
+  "author": "RedJanvier <janvierntwali@gmail.com>",
+  "license": "GPL-3.0",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  }
+}

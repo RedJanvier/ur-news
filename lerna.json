@@ -12,6 +12,5 @@
       "message": "chore(release): publish %s"
     }
   },
-  "npmClient": "yarn",
   "useWorkspaces": true
 }

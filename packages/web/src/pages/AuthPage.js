@@ -1,96 +1,123 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import Modal from "../components/Modal/Modal";
+import { combinations, schools, departments, colleges } from '@ur-news/locations';
 import { GlobalContext } from "../context/GlobalState";
-import "./AuthPage.css";
 import Spinner from "../components/Spinner/Spinner";
+import Modal from "../components/Modal/Modal";
 import Toast from "../components/Toast/Toast";
+import "./AuthPage.css";
 
-const AuthPage = (props) => {
-  const { login, register, error, pending } = useContext(GlobalContext);
-  const [state, setState] = useState({
-    page: "login",
-    name: "",
+const AuthPage = () => {
+  const { login, register, error, pending, setError } = useContext(
+    GlobalContext
+  );
+  const initialState = {
+    page: 'Login',
+    name: '',
     regNumber: 0,
-    password: "",
+    password: '',
     audienceLocation: {
-      class: "",
-      campus: "",
-      department: "",
-      school: "",
+      class: '',
+      campus: '',
+      department: '',
+      school: '',
     },
-  });
-  const history = useHistory();
-  const notPage = state.page === "login" ? "register" : "login";
+  };
+  const [state, setState] = useState(initialState);
+  const regexes = {
+    regNumber: /^2([1-2]{1})([0-9]{7})$/,
+    // name: /^([A-Za-z]{3,20})\s([A-Za-z]{3,20})(\s[A-Za-z]{3,20})?(\s[A-Za-z]{3,20})?$/,
+  };
+
   const { page } = state;
+  const notPage = page === 'Login' ? 'Register' : 'Login';
   useEffect(() => {
     document.title = `${page} - UR News Post`;
   }, [page]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (state.page === "register") {
-      await register({
+    if (state.page === 'Register') {
+      const { audienceLocation } = state;
+      if (state.name.trim().length < 6)
+        return setError('Please provide a name!');
+      if (!regexes.regNumber.test(state.regNumber))
+        return setError('Please provide a valid reg. Number!');
+      if (state.password.trim().length < 7)
+        return setError('Password must be atleast 7 characters');
+      if (audienceLocation.class.trim().length < 3)
+        return setError('Please select a combination!');
+      if (audienceLocation.department.trim().length < 3)
+        return setError('Please select a department!');
+      if (audienceLocation.campus.trim().length < 3)
+        return setError('Please select a campus!');
+      if (audienceLocation.school.trim().length < 3)
+        return setError('Please select a school!');
+
+      const success = await register({
         name: state.name,
         regNumber: state.regNumber,
         password: state.password,
         ...state.audienceLocation,
       });
-      return history.push("/");
+
+      if (success) {
+        setState(initialState);
+      }
     }
+
     await login({ regNumber: state.regNumber, password: state.password });
   };
 
   return (
-    <div className="auth-page">
+    <div className='auth-page'>
       <Modal title={state.page}>
         {error && (
           <Toast
             text={error}
             duration={5}
-            type={error === "Registered successfully" ? "success" : "error"}
+            type={error === 'Registered successfully' ? 'success' : 'error'}
           />
         )}
         <form onSubmit={handleFormSubmit}>
-          {state.page === "register" && (
-            <div className="form-control">
-              <label htmlFor="username">Full Name</label>
+          {state.page === 'Register' && (
+            <div className='form-control'>
+              <label htmlFor='username'>Full Name</label>
               <input
-                type="text"
-                name="username"
-                placeholder="Enter your Full name"
+                type='text'
+                name='username'
+                placeholder='Enter your Full name'
                 onChange={(e) => setState({ ...state, name: e.target.value })}
                 required
               />
             </div>
           )}
-          <div className="form-control">
-            <label htmlFor="reg">Reg. Number</label>
+          <div className='form-control'>
+            <label htmlFor='reg'>Reg. Number</label>
             <input
-              type="text"
-              name="reg"
+              type='text'
+              name='reg'
               onChange={(e) =>
                 setState({ ...state, regNumber: parseInt(e.target.value) })
               }
-              placeholder="Enter your RegNumber"
+              placeholder='Enter your RegNumber'
               required
             />
           </div>
-          <div className="form-control">
-            <label htmlFor="password">Password</label>
+          <div className='form-control'>
+            <label htmlFor='password'>Password</label>
             <input
-              type="password"
-              name="password"
-              placeholder="Enter your Password"
+              type='password'
+              name='password'
+              placeholder='Enter your Password'
               onChange={(e) => setState({ ...state, password: e.target.value })}
               required
             />
           </div>
-          {state.page === "register" && (
+          {state.page === 'Register' && (
             <>
-              <div className="form-control">
+              <div className='form-control'>
                 <select
-                  name="campus"
+                  name='campus'
                   value={state.audienceLocation.campus}
                   onChange={(e) =>
                     setState({
@@ -102,15 +129,17 @@ const AuthPage = (props) => {
                   }
                   required
                 >
-                  <option value="" disabled>
-                    Select a campus
+                  <option value='' disabled>
+                    Select your campus
                   </option>
-                  <option value="CST">UR CST - Nyarugenge</option>
+                  {colleges.UR.map((college) => (
+                    <option value={college.abbr}>{college.text}</option>
+                  ))}
                 </select>
               </div>
-              <div className="form-control">
+              <div className='form-control'>
                 <select
-                  name="school"
+                  name='school'
                   value={state.audienceLocation.school}
                   onChange={(e) =>
                     setState({
@@ -122,22 +151,18 @@ const AuthPage = (props) => {
                   }
                   required
                 >
-                  <option value="" disabled>
+                  <option value='' disabled>
                     Select your School
                   </option>
-                  <option value="ICT">School of ICT</option>
-                  <option value="MIN">School of Mining</option>
-                  <option value="SCI">School of Science</option>
-                  <option value="ENG">School of Engineering</option>
-                  <option value="ARC">School of Architecture</option>
+                  {schools[state.audienceLocation.campus].map((school) => (
+                    <option value={school.abbr}>{school.text}</option>
+                  ))}
                 </select>
               </div>
-              <div className="form-control">
-                <label htmlFor="department">Department</label>
-                <input
-                  type="text"
-                  name="department"
-                  placeholder="Enter your Department in abbreviations"
+              <div className='form-control'>
+                <select
+                  name='department'
+                  value={state.audienceLocation.department}
                   onChange={(e) =>
                     setState({
                       ...state,
@@ -147,14 +172,21 @@ const AuthPage = (props) => {
                     })
                   }
                   required
-                />
+                >
+                  <option value='' disabled>
+                    Select your Department
+                  </option>
+                  {departments[state.audienceLocation.school].map(
+                    (department) => (
+                      <option value={department.abbr}>{department.text}</option>
+                    )
+                  )}
+                </select>
               </div>
-              <div className="form-control">
-                <label htmlFor="class">Combination</label>
-                <input
-                  type="text"
-                  name="class"
-                  placeholder="Enter your Combination in abbreviations"
+              <div className='form-control'>
+                <select
+                  name='class'
+                  value={state.audienceLocation.class}
                   onChange={(e) =>
                     setState({
                       ...state,
@@ -164,20 +196,32 @@ const AuthPage = (props) => {
                     })
                   }
                   required
-                />
+                >
+                  <option value='' disabled>
+                    Select your Class
+                  </option>
+                  {combinations[state.audienceLocation.department].map(
+                    (combination) => (
+                      <option value={combination.abbr}>
+                        {combination.text}
+                      </option>
+                    )
+                  )}
+                </select>
               </div>
             </>
           )}
-          <div className="form-control">
+          <div className='form-control'>
             <button
-              type="submit"
-              className="btn"
-              disabled={pending ? "disabled" : ""}
+              type='submit'
+              className='btn'
+              disabled={pending ? 'disabled' : ''}
             >
               {!pending ? `${state.page}` : <Spinner />}
             </button>
             <button
-              className="btn-light"
+              type='button'
+              className='btn-light'
               onClick={() => setState({ ...state, page: notPage })}
             >
               {notPage} instead
