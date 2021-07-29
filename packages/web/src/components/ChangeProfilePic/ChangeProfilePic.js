@@ -8,6 +8,7 @@ import Modal from '../Modal/Modal';
 import { BASE_URL } from '../../constants';
 import Spinner from '../Spinner/Spinner';
 import { GlobalContext } from '../../context/GlobalState';
+import Tag from '../shared/Tag';
 
 const ChangeProfile = () => {
   const [img, setImg] = useState('');
@@ -15,21 +16,31 @@ const ChangeProfile = () => {
   const [imgUrl, setImgUrl] = useState(
     'https://res.cloudinary.com/redjanvier/image/upload/v1592564639/blank-profile-picture-973460_640_l3acum.png'
   );
+  const [user, setUser] = useState({
+    name: '',
+    regNumber,
+    email: '',
+    department: '',
+    school: '',
+    field: '',
+    campus: 'CST',
+  });
   const editBtn = <FontAwesomeIcon icon={faPencilAlt} />;
   const [loading, setLoading] = useState(false);
-  const { token } = useContext(GlobalContext);
+  const { userId, token } = useContext(GlobalContext);
   const history = useHistory();
 
   useEffect(() => {
     (async () => {
       const res = await fetch(`${BASE_URL}/api/v1/users/${regNumber}`);
       const { success, data } = await res.json();
-      console.log(data);
 
       if (success) {
         setImgUrl(data.image);
+        setUser({ ...data, field: data.class });
       }
     })();
+    // eslint-disable-next-line
   }, []);
 
   const handleFileSelect = (e) => {
@@ -46,6 +57,7 @@ const ChangeProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!userId || userId !== user._id) return;
 
     setLoading(true);
 
@@ -83,15 +95,33 @@ const ChangeProfile = () => {
           <div className='form-control'>
             <input
               type='file'
+              disabled={!userId || userId !== user._id}
               accept='image/jpeg'
               onChange={handleFileSelect}
             />
           </div>
           <div className='form-control'>
-            <button type='submit' className='btn'>
-              {!loading ? 'Update' : <Spinner />}
-            </button>
+            <input
+              type='text'
+              defaultValue={user.name}
+              disabled={!userId || userId !== user._id}
+            />
           </div>
+          <div className='form-control'>
+            <input type='text' defaultValue={user.regNumber} disabled />
+          </div>
+          <div className='form-control'>
+            {['campus', 'school', 'department', 'field'].map((type) => (
+              <Tag type={type}>{user[type]}</Tag>
+            ))}
+          </div>
+          {userId && userId === user._id && (
+            <div className='form-control'>
+              <button type='submit' className='btn'>
+                {!loading ? 'Update' : <Spinner />}
+              </button>
+            </div>
+          )}
         </form>
       </Modal>
     </div>
