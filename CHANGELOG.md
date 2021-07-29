@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/RedJanvier/ur-news/compare/v0.1.0...v0.2.0) (2021-07-29)
+
+
+### Features
+
+* **profile:** add security and improve data ([1140bcc](https://github.com/RedJanvier/ur-news/commit/1140bccb4ab5174d28be4973e50015f1197888c2))
+* **profile:** support public profile by regnumbers ([3825fc5](https://github.com/RedJanvier/ur-news/commit/3825fc587544608663bd1553f787da083877063d))
+
+
+
+
+
 # [0.1.0](https://github.com/RedJanvier/ur-news/compare/v0.0.3...v0.1.0) (2021-07-24)
 
 
