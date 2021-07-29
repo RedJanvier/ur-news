@@ -24,9 +24,9 @@ export const readAll = asyncHandler(async (req, res) => {
 // @route     GET /api/v1/users/id
 // @access    Public
 export const read = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { id: regNumber } = req.params;
 
-  const user = await userServices.findOne({ _id: id });
+  const user = await userServices.findOne({ regNumber });
 
   res.status(200).json({
     success: true,

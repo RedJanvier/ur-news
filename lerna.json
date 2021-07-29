@@ -1,16 +1,12 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "version": "0.1.0",
   "command": {
     "publish": {
-      "allowBranch": [
-        "main",
-        "develop"
-      ],
+      "allowBranch": ["main", "develop"],
       "message": "chore(release): publish %s"
     }
   },
+  "npmClient": "yarn",
   "useWorkspaces": true
 }

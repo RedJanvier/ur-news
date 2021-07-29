@@ -1,0 +1,22 @@
+.tag {
+  padding: 0.5rem 3rem;
+  background: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  border-radius: 50px;
+  margin: 0.2rem 1rem;
+}
+.school {
+  background: rgb(230, 123, 123);
+}
+.campus {
+  background: rgb(221, 123, 230);
+}
+.department {
+  background: rgb(123, 230, 141);
+}
+.field {
+  background: rgb(123, 218, 230);
+}
