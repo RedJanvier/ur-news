@@ -29,7 +29,7 @@
 .news-post {
   background: #fefefe;
   border-radius: 0.4em;
-  /* box-shadow: 1px 1px 10px var(--bg-primary-transparent); */
+  /* box-shadow: 1px 1px 10px var(--primary-color-transparent); */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -87,7 +87,7 @@
   padding: 1em;
   margin: 0.4em 0;
   border-radius: 10px;
-  border: 2px solid var(--text-secondary);
+  border: 2px solid var(--dark-color-light);
 }
 .news-post__body .body,
 .news-post__footer {
@@ -129,5 +129,5 @@
   text-transform: capitalize;
 }
 .news-post__body input:focus {
-  border-color: var(--bg-primary);
+  border-color: var(--primary-color);
 }
