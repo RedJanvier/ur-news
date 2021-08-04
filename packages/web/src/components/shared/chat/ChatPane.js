@@ -1,24 +1,24 @@
-import moment from "moment";
-import ReactEmoji from "react-emoji";
-import socket from "socket.io-client";
-import React, { useContext, useEffect, useState, useRef } from "react";
-import { GlobalContext } from "../../../context/GlobalState";
-import { BASE_URL, NODE_ENV } from "../../../constants";
-import classes from "../../styles/ChatPane.module.css";
-import Spinner from "../../Spinner/Spinner";
+import moment from 'moment';
+import ReactEmoji from 'react-emoji';
+import socket from 'socket.io-client';
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import { GlobalContext } from '../../../context/GlobalState';
+import { BASE_URL, NODE_ENV } from '../../../constants';
+import classes from '../../styles/ChatPane.module.css';
+import Spinner from '../../Spinner/Spinner';
 
 const Message = ({ chat, userId }) => (
   <li
     className={`${classes.chat} ${
-      chat.author.id === userId ? classes.mine : ""
+      chat.author.id === userId ? classes.mine : ''
     }`}
     key={chat._id}
   >
     <span>
       <span className={classes.img}>
-        <img src={chat.author.image} alt="chat-author-img" />
+        <img src={chat.author.image} alt='chat-author-img' />
       </span>
-      <b>{chat.author.id === userId ? "Me" : chat.author.name}</b>
+      <b>{chat.author.id === userId ? 'Me' : chat.author.name}</b>
       <em>{moment(chat.createdAt).fromNow()}</em>
     </span>
     <p>{ReactEmoji.emojify(chat.body)}</p>
@@ -29,8 +29,8 @@ const Messages = () => {
   const { chatsPending, chats, userId } = useContext(GlobalContext);
   return (
     <>
-      <ul className="chats">
-        {chatsPending && <Spinner color="default" />}
+      <ul className='chats'>
+        {chatsPending && <Spinner color='default' />}
         {!chats.length && !chatsPending && <p>No messages yet!</p>}
         {chats.map((chat) => (
           <Message chat={chat} userId={userId} />
@@ -42,25 +42,25 @@ const Messages = () => {
 
 const CreateMessage = ({ sent, scroll }) => {
   const { createChat } = useContext(GlobalContext);
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState('');
   const onSubmit = async (e) => {
     e.preventDefault();
     const success = await createChat({ body: msg });
     scroll();
     if (success) {
-      setMsg("");
+      setMsg('');
       sent();
     }
   };
   return (
     <form className={classes.addOne} onSubmit={onSubmit}>
       <input
-        type="text"
-        placeholder="New message..."
+        type='text'
+        placeholder='New message...'
         onChange={(e) => setMsg(e.target.value)}
         value={msg}
       />
-      <button className="btn">Send</button>
+      <button className='btn'>Send</button>
     </form>
   );
 };
@@ -68,15 +68,9 @@ const CreateMessage = ({ sent, scroll }) => {
 const ChatPane = () => {
   const bottom = useRef();
   const [sent, setSent] = useState(false);
-  const scrollTo = (ref) => ref.current.scrollIntoView({ behavior: "smooth" });
-  const {
-    userId,
-    fetchChats,
-    token,
-    updateChats,
-    error,
-    cleanError,
-  } = useContext(GlobalContext);
+  const scrollTo = (ref) => ref.current.scrollIntoView({ behavior: 'smooth' });
+  const { userId, fetchChats, token, updateChats, error, cleanError } =
+    useContext(GlobalContext);
   useEffect(() => {
     (async () => {
       const success = await fetchChats();
@@ -84,11 +78,11 @@ const ChatPane = () => {
     })();
     const io = socket(BASE_URL, {
       query: { auth_token: token },
-      secure: NODE_ENV === "production",
+      secure: NODE_ENV === 'production',
       reconnection: true,
       rejectUnauthorized: false,
     });
-    io.on("chat-message", (data) => {
+    io.on('chat-message', (data) => {
       if (data.author.id !== userId) {
         updateChats(data);
         scrollTo(bottom);
@@ -118,10 +112,12 @@ const ChatPane = () => {
         {sent && (
           <>
             <i
-              class="fa fa-check-circle"
-              style={{ color: "var(--bg-secondary)" }}
+              class='fa fa-check-circle'
+              style={{ color: 'var(--secondary-color)' }}
             ></i>
-            <span style={{ color: "var(--bg-secondary)" }}>Message sent!</span>
+            <span style={{ color: 'var(--secondary-color)' }}>
+              Message sent!
+            </span>
           </>
         )}
         {error && (

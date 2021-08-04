@@ -1,0 +1,31 @@
+.sidebar {
+  background: var(--white-color);
+  border: 1px solid var(--border-color);
+  height: 300px;
+  width: 90%;
+  max-width: 300px;
+  padding-top: 1rem;
+  border-radius: 10px;
+  position: sticky;
+}
+
+.main {
+  margin: 0 20px;
+  width: 100%;
+}
+
+.sideLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sideLinks li {
+  padding-left: 2.5rem;
+  position: relative;
+}
+
+.sideLinks .icon {
+  left: 1rem;
+  position: absolute;
+}

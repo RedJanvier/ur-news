@@ -11,7 +11,7 @@
   height: 4rem;
   width: 4rem;
   border-radius: 50%;
-  color: var(--bg-secondary);
+  color: var(--secondary-color);
   background: white;
   border: none;
   outline: none;
@@ -20,6 +20,6 @@
 }
 .icon:hover {
   box-shadow: 2px 2px 30px #131313ad;
-  background: var(--bg-secondary);
+  background: var(--secondary-color);
   color: white;
 }

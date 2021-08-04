@@ -43,47 +43,47 @@ const App = () => {
             {state.showChatPane && <ChatPane />}
           </>
         )}
-        <main
+        {/* <main
           className='page'
           onClick={() =>
             state.showLinks && setState({ ...state, showLinks: false })
           }
-        >
-          <Suspense fallback={<Spinner />}>
-            <Switch>
-              {role !== 'admin' && <Redirect from='/admin' to='/' exact />}
-              {role === 'student' && <Redirect from='/create' to='/' exact />}
-              {role === 'student' && <Redirect from='/created' to='/' exact />}
-              {!token && <Redirect from='/' to='/auth' exact />}
-              {!token && <Redirect from='/home' to='/' exact />}
-              {!token && <Redirect from='/create' to='/' exact />}
-              {!token && <Redirect from='/created' to='/' exact />}
-              {!token && <Redirect from='/post/:id' to='/' exact />}
-              {!token && <Redirect from='/post/edit/:id' to='/' exact />}
-              {token && <Redirect from='/' to='/home' exact />}
-              {token && <Redirect from='/auth' to='/home' exact />}
-              <Route exact path='/auth' component={AuthPage} />
-              <Route exact path='/home' component={HomePage} />
-              <Route exact path='/created' component={HomePage} />
-              <Route exact path='/profile/:regNumber' component={ProfilePage} />
-              <PrivateRoute exact path='/create'>
-                <CreateNewsPage role={role} token={token} />
-              </PrivateRoute>
-              <PrivateRoute exact path='/admin' component={AdminPage} />
-              <PrivateRoute exact path='/post/:id' component={SingleNews} />
-              <PrivateRoute
-                exact
-                path='/post/edit/:newsId'
-                component={EditNews}
-              />
-              <Route exact path='/404'>
-                <h1>Page not found Please!!!</h1>
-                <Link to='/'>Go back</Link>
-              </Route>
-              <Redirect from='/' to='/home' />
-            </Switch>
-          </Suspense>
-        </main>
+        > */}
+        <Suspense fallback={<Spinner />}>
+          <Switch>
+            {role !== 'admin' && <Redirect from='/admin' to='/' exact />}
+            {role === 'student' && <Redirect from='/create' to='/' exact />}
+            {role === 'student' && <Redirect from='/created' to='/' exact />}
+            {!token && <Redirect from='/' to='/auth' exact />}
+            {!token && <Redirect from='/home' to='/' exact />}
+            {!token && <Redirect from='/create' to='/' exact />}
+            {!token && <Redirect from='/created' to='/' exact />}
+            {!token && <Redirect from='/post/:id' to='/' exact />}
+            {!token && <Redirect from='/post/edit/:id' to='/' exact />}
+            {token && <Redirect from='/' to='/home' exact />}
+            {token && <Redirect from='/auth' to='/home' exact />}
+            <Route exact path='/auth' component={AuthPage} />
+            <Route exact path='/home' component={HomePage} />
+            <Route exact path='/created' component={HomePage} />
+            <Route exact path='/profile/:regNumber' component={ProfilePage} />
+            <PrivateRoute exact path='/create'>
+              <CreateNewsPage role={role} token={token} />
+            </PrivateRoute>
+            <PrivateRoute exact path='/admin' component={AdminPage} />
+            <PrivateRoute exact path='/post/:id' component={SingleNews} />
+            <PrivateRoute
+              exact
+              path='/post/edit/:newsId'
+              component={EditNews}
+            />
+            <Route exact path='/404'>
+              <h1>Page not found Please!!!</h1>
+              <Link to='/'>Go back</Link>
+            </Route>
+            <Redirect from='/' to='/home' />
+          </Switch>
+        </Suspense>
+        {/* </main> */}
       </Router>
     </>
   );

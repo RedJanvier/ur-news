@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import "./Spinner.css";
+import './Spinner.css';
 
 const Spinner = ({ color }) => {
   const styles = color
-    ? { color: "var(--bg-secondary)", background: "var(--bg-secondary)" }
+    ? { color: 'var(--secondary-color)', background: 'var(--secondary-color)' }
     : {};
   return (
-    <div className="spinner" style={styles}>
-      <div className="lds-ellipsis">
+    <div className='spinner' style={styles}>
+      <div className='lds-ellipsis'>
         <div></div>
         <div></div>
         <div></div>

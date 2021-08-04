@@ -52,7 +52,7 @@
   position: fixed;
   content: "";
   z-index: -1;
-  background: var(--bg-secondary);
+  background: var(--secondary-color);
 }
 .modal:hover::before,
 .modal:hover::after {
@@ -66,7 +66,7 @@
   padding: 2em;
   border-radius: 10px;
   border: 1px solid var(--border-color);
-  /* box-shadow: 1px 1px 10px var(--bg-primary-transparent); */
+  /* box-shadow: 1px 1px 10px var(--primary-color-transparent); */
 }
 .modal .form-control label {
   font-weight: 400;
@@ -97,7 +97,7 @@
   margin: 0.4em 0;
   border-radius: 2px;
   outline: none !important;
-  border: 2px solid var(--text-secondary);
+  border: 2px solid var(--dark-color-light);
 }
 .modal__footer {
   text-align: center;
@@ -112,7 +112,7 @@
 }
 .modal__body input:focus {
   outline: none !important;
-  border-color: var(--bg-primary);
+  border-color: var(--primary-color);
 }
 .modal__body img {
   width: 100%;
@@ -124,7 +124,7 @@
   padding: 0.6em 1.4em 0.5em 0.8em;
   width: 100%;
   max-width: 100%;
-  border: 1px solid var(--bg-primary-transparent);
+  border: 1px solid var(--primary-color-transparent);
   box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
   border-radius: 2px;
   -moz-appearance: none;
@@ -140,7 +140,7 @@
   display: none;
 }
 .modal__body select:focus {
-  border-color: var(--bg-primary);
+  border-color: var(--primary-color);
 }
 .modal__body select option {
   font-weight: normal;
