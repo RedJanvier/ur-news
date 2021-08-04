@@ -1,11 +1,11 @@
 @font-face {
   font-size: normal;
   font-weight: normal;
-  font-family: "BOOKMAN OLD STYLE";
-  src: url("./BOOKMAN\ OLD\ STYLE.ttf");
+  font-family: 'BOOKMAN OLD STYLE';
+  src: url('./BOOKMAN\ OLD\ STYLE.ttf');
 }
 * {
-  font-family: "BOOKMAN OLD STYLE";
+  font-family: 'BOOKMAN OLD STYLE';
   font-weight: 200;
   box-sizing: border-box;
 }
@@ -14,10 +14,11 @@
   --bg-primary-transparent: #272a5a70;
   --bg-secondary: #545cd4;
   --text-primary: #1c1c34;
-  --text-secondary: #e2e4ee;
+  --text-secondary: #f2f2f2;
+  --border-color: #c7c7c7;
 }
 body {
-  background: var(--bg-primary);
+  background: var(--text-secondary);
   position: relative;
 }
 .btn {

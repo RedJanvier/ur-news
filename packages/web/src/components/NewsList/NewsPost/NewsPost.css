@@ -29,11 +29,14 @@
 .news-post {
   background: #fefefe;
   border-radius: 0.4em;
-  box-shadow: 1px 1px 10px var(--bg-primary-transparent);
+  /* box-shadow: 1px 1px 10px var(--bg-primary-transparent); */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
+  outline: none;
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.6rem;
 }
 .news-post .form-control label {
   font-weight: 400;
@@ -76,9 +79,9 @@
 }
 .news-post__body .btn,
 .news-post__body .btn-light,
-.news-post__body input[type="text"],
-.news-post__body input[type="submit"],
-.news-post__body input[type="password"] {
+.news-post__body input[type='text'],
+.news-post__body input[type='submit'],
+.news-post__body input[type='password'] {
   width: 100%;
   font-size: 1em;
   padding: 1em;
