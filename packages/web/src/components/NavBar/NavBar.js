@@ -20,7 +20,7 @@ const NavBar = ({ changeLinksView, showLinks }) => {
             style={{ width: '2rem', height: '2rem' }}
             alt='logo'
           />
-          <h2>UR News Post</h2>
+          <h2>UR News</h2>
         </NavLink>
         <button onClick={changeLinksView} className='hamburger'>
           {hamburgerBtn}
@@ -39,11 +39,6 @@ const NavBar = ({ changeLinksView, showLinks }) => {
                     My News
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to={'/profile/' + regNumber} className='otherBtns'>
-                    Profile
-                  </NavLink>
-                </li>
               </>
             )}
             {role === 'admin' && (
@@ -54,11 +49,18 @@ const NavBar = ({ changeLinksView, showLinks }) => {
               </li>
             )}
             {token && (
-              <li>
-                <button className='otherBtns' onClick={logout}>
-                  Logout
-                </button>
-              </li>
+              <>
+                <li>
+                  <NavLink to={'/profile/' + regNumber} className='otherBtns'>
+                    Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <button className='otherBtns' onClick={logout}>
+                    Logout
+                  </button>
+                </li>
+              </>
             )}
           </ul>
         </div>
