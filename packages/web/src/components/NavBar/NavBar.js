@@ -27,7 +27,7 @@ const NavBar = ({ changeLinksView, showLinks }) => {
         </button>
         <div className='navbar__links'>
           <ul>
-            {role !== 'student' && (
+            {token && role !== 'student' && (
               <>
                 <li>
                   <NavLink to='/create' className='otherBtns'>
@@ -41,14 +41,14 @@ const NavBar = ({ changeLinksView, showLinks }) => {
                 </li>
               </>
             )}
-            {role === 'admin' && (
+            {token && role === 'admin' && (
               <li>
                 <NavLink to='/admin' className='otherBtns'>
                   Admin
                 </NavLink>
               </li>
             )}
-            {token && (
+            {token ? (
               <>
                 <li>
                   <NavLink to={'/profile/' + regNumber} className='otherBtns'>
@@ -61,12 +61,18 @@ const NavBar = ({ changeLinksView, showLinks }) => {
                   </button>
                 </li>
               </>
+            ) : (
+              <li>
+                <NavLink to='/auth' className='otherBtns'>
+                  Auth
+                </NavLink>
+              </li>
             )}
           </ul>
         </div>
       </div>
       <ul className={`mobile ${!showLinks ? 'hide' : ''}`}>
-        {role !== 'student' && (
+        {token && role !== 'student' && (
           <>
             <li onClick={changeLinksView}>
               <NavLink to='/create' className='otherBtns'>
@@ -85,18 +91,25 @@ const NavBar = ({ changeLinksView, showLinks }) => {
             </li>
           </>
         )}
-        {role === 'admin' && (
+        {token && role === 'admin' && (
           <li onClick={changeLinksView}>
             <NavLink to='/admin' className='otherBtns'>
               Admin
             </NavLink>
           </li>
         )}
-        {token && (
+        {token ? (
           <li onClick={changeLinksView}>
+            {' '}
             <button className='otherBtns' onClick={logout}>
               Logout
             </button>
+          </li>
+        ) : (
+          <li onClick={changeLinksView}>
+            <NavLink to='/auth' className='otherBtns'>
+              Auth
+            </NavLink>
           </li>
         )}
       </ul>

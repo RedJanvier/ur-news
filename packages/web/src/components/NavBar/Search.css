@@ -31,7 +31,7 @@ ul.mobile.hide {
   z-index: 3;
   color: var(--bg-primary);
   justify-content: space-evenly;
-  background: #fcfcfc;
+  background: #fefefe;
   align-items: center;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.12);
 }

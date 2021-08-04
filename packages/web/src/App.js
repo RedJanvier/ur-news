@@ -36,12 +36,9 @@ const App = () => {
   return (
     <>
       <Router>
+        <Navbar changeLinksView={changeLinksView} showLinks={state.showLinks} />
         {token && (
           <>
-            <Navbar
-              changeLinksView={changeLinksView}
-              showLinks={state.showLinks}
-            />
             <ChatIcon clickHandler={toggleShowChatPane} />
             {state.showChatPane && <ChatPane />}
           </>
