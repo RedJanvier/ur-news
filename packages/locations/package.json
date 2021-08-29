@@ -1,14 +1,23 @@
 {
   "name": "@ur-news/locations",
   "version": "0.2.0",
-  "description": "> TODO: description",
+  "description": "A list of all locations (Colleges, Schools, Departments, and Combinations) in University of Rwanda.",
   "keywords": [
-    "ur-news-locations"
+    "ur-news-locations",
+    "university of Rwanda",
+    "ur",
+    "ur-news",
+    "schools",
+    "colleges",
+    "departments"
   ],
   "author": "RedJanvier <janvierntwali@gmail.com>",
   "license": "GPL-3.0",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib"
+  },
+  "scripts": {
+    "publish": "npm publish --access='public'"
   }
 }
