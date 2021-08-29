@@ -12,7 +12,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "publish:locations": "lerna run publish --scope=@ur-news/locations",
-    "release": "lerna version --conventional-commits --yes && publish:locations",
+    "release": "lerna version --conventional-commits --yes && yarn publish:locations",
     "start:server": "lerna run start --scope=@ur-news/server",
     "build": "lerna run build --stream --parallel",
     "start": "lerna run start --stream --parallel",
