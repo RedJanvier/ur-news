@@ -17,7 +17,9 @@
   "directories": {
     "lib": "lib"
   },
-  "scripts": {
-    "publish": "npm publish --access=public"
+  "publishConfig": {
+    "access": "public",
+    "scope": "@ur-news",
+    "registry": "https://registry.npmjs.org/@ur-news/locations"
   }
 }

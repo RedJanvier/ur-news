@@ -5,7 +5,10 @@ exports.colleges = {
     {
       text: 'College of Science & Technology',
       abbr: 'CST',
-      parent: 'UR',
+    },
+    {
+      text: 'College of Business & Economics',
+      abbr: 'CBE',
     },
   ],
   '': [],
@@ -126,8 +129,8 @@ exports.combinations = {
 };
 
 module.exports = {
-    colleges: this.colleges,
-    schools: this.schools,
-    departments: this.departments,
-    combinations: this.combinations,
+  colleges: this.colleges,
+  schools: this.schools,
+  departments: this.departments,
+  combinations: this.combinations,
 };
