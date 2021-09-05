@@ -15,14 +15,19 @@
   "license": "GPL-3.0",
   "main": "lib/index.js",
   "directories": {
-    "lib": "lib"
+    "lib": "lib",
+    "bin": "build"
   },
   "scripts": {
-    "publish": "npm publish"
+    "publish": "npm publish",
+    "ts": "npx tsc -w"
   },
   "publishConfig": {
     "access": "public",
     "scope": "@ur-news",
     "registry": "https://registry.npmjs.org/@ur-news/locations"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.2"
   }
 }

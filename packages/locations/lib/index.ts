@@ -1,6 +1,14 @@
 'use strict';
 
-exports.colleges = {
+interface ILocation {
+  text: string;
+  abbr: string;
+}
+interface ILocationContainer {
+  [key: string]: ILocation[];
+}
+
+export const colleges: ILocationContainer = {
   UR: [
     {
       text: 'College of Science & Technology',
@@ -30,7 +38,7 @@ exports.colleges = {
   '': [],
 };
 
-exports.schools = {
+export const schools: ILocationContainer = {
   '': [],
   CST: [
     {
@@ -139,7 +147,7 @@ exports.schools = {
   ],
 };
 
-exports.departments = {
+export const departments: ILocationContainer = {
   '': [],
   // CMHS
 
@@ -380,7 +388,7 @@ exports.departments = {
     },
     {
       text: 'Social Sciences ',
-      abbr: 'SS',
+      abbr: 'SOCS',
     },
   ],
   SJC: [
@@ -475,7 +483,7 @@ exports.departments = {
   ],
 };
 
-exports.combinations = {
+export const combinations: ILocationContainer = {
   '': [],
 
   // SNAM
@@ -826,10 +834,10 @@ exports.combinations = {
       abbr: 'SAMS',
     },
   ],
-  SS: [
+  SOCS: [
     {
       text: 'Social Sciences ',
-      abbr: 'SS',
+      abbr: 'SOCS',
     },
   ],
   // SOG END
@@ -995,9 +1003,9 @@ exports.combinations = {
   // SICT END
 };
 
-module.exports = {
-  colleges: this.colleges,
-  schools: this.schools,
-  departments: this.departments,
-  combinations: this.combinations,
+export default {
+  colleges,
+  schools,
+  departments,
+  combinations,
 };
