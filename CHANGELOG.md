@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/RedJanvier/ur-news/compare/v0.3.1...v0.4.0) (2021-09-05)
+
+
+### Features
+
+* **loactions:** adding combinations and departements ([08f8e05](https://github.com/RedJanvier/ur-news/commit/08f8e053677f268d47929c29c6c373579ab827e2))
+
+
+
+
+
 ## [0.3.1](https://github.com/RedJanvier/ur-news/compare/v0.3.0...v0.3.1) (2021-08-29)
 
 **Note:** Version bump only for package ur-news
