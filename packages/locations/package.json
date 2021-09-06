@@ -13,22 +13,21 @@
   ],
   "author": "RedJanvier <janvierntwali@gmail.com>",
   "license": "GPL-3.0",
-  "main": "lib/index.js",
+  "main": "build/index.js",
   "directories": {
-    "lib": "lib",
-    "bin": "build"
+    "lib": "lib"
   },
   "scripts": {
     "publish": "npm publish",
-    "ts": "npx tsc -w",
-    "build": "npx tsc"
+    "start": "tsc -w",
+    "build": "tsc"
   },
   "publishConfig": {
     "access": "public",
     "scope": "@ur-news",
     "registry": "https://registry.npmjs.org/@ur-news/locations"
   },
-  "devDependencies": {
+  "dependencies": {
     "typescript": "^4.4.2"
   }
 }
