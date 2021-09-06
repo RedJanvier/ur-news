@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/RedJanvier/ur-news/compare/v0.4.0...v0.6.0) (2021-09-06)
+
+
+### Features
+
+* **typescript loactions:** setup locations to use typescript#" ([672a6a3](https://github.com/RedJanvier/ur-news/commit/672a6a346f00b06a4c5da4b766c2d59e23c98525))
+
+
+
+
+
 # [0.5.0](https://github.com/RedJanvier/ur-news/compare/v0.4.0...v0.5.0) (2021-09-06)
 
 
