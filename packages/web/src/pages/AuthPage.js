@@ -1,15 +1,19 @@
-import React, { useState, useContext, useEffect } from "react";
-import { combinations, schools, departments, colleges } from '@ur-news/locations';
-import { GlobalContext } from "../context/GlobalState";
-import Spinner from "../components/Spinner/Spinner";
-import Modal from "../components/Modal/Modal";
-import Toast from "../components/Toast/Toast";
-import "./AuthPage.css";
+import React, { useState, useContext, useEffect } from 'react';
+import {
+  combinations,
+  schools,
+  departments,
+  colleges,
+} from '@ur-news/locations';
+import { GlobalContext } from '../context/GlobalState';
+import Spinner from '../components/Spinner/Spinner';
+import Modal from '../components/Modal/Modal';
+import Toast from '../components/Toast/Toast';
+import './AuthPage.css';
 
 const AuthPage = () => {
-  const { login, register, error, pending, setError } = useContext(
-    GlobalContext
-  );
+  const { login, register, error, pending, setError } =
+    useContext(GlobalContext);
   const initialState = {
     page: 'Login',
     name: '',
@@ -44,13 +48,13 @@ const AuthPage = () => {
         return setError('Please provide a valid reg. Number!');
       if (state.password.trim().length < 7)
         return setError('Password must be atleast 7 characters');
-      if (audienceLocation.class.trim().length < 3)
+      if (audienceLocation.class.trim().length < 2)
         return setError('Please select a combination!');
-      if (audienceLocation.department.trim().length < 3)
+      if (audienceLocation.department.trim().length < 2)
         return setError('Please select a department!');
-      if (audienceLocation.campus.trim().length < 3)
+      if (audienceLocation.campus.trim().length < 2)
         return setError('Please select a campus!');
-      if (audienceLocation.school.trim().length < 3)
+      if (audienceLocation.school.trim().length < 2)
         return setError('Please select a school!');
 
       const success = await register({
@@ -179,7 +183,7 @@ const AuthPage = () => {
                   {departments[state.audienceLocation.school].map(
                     (department) => (
                       <option value={department.abbr}>{department.text}</option>
-                    )
+                    ),
                   )}
                 </select>
               </div>
@@ -205,7 +209,7 @@ const AuthPage = () => {
                       <option value={combination.abbr}>
                         {combination.text}
                       </option>
-                    )
+                    ),
                   )}
                 </select>
               </div>

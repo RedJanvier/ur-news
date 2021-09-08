@@ -1,6 +1,6 @@
-import React, { createContext, useReducer } from "react";
-import AppReducer from "./AppReducers";
-import { BASE_URL, ENDPOINTS } from "../constants";
+import React, { createContext, useReducer } from 'react';
+import AppReducer from './AppReducers';
+import { BASE_URL, ENDPOINTS } from '../constants';
 import {
   LOGIN_USER,
   LOGIN_USER_ERROR,
@@ -29,43 +29,44 @@ import {
   CREATE_NEWS_PENDING,
   CREATE_NEWS_ERROR,
   CREATE_NEWS_SUCCESS,
-} from "./actionTypes";
+  SET_ERROR,
+} from './actionTypes';
 
 const initialState = {
   pending: false,
   chatsPending: false,
-  token: localStorage.getItem("token") || null,
+  token: localStorage.getItem('token') || null,
   userId: null,
   regNumber: null,
   role: null,
   news: [],
   chats: [],
-  error: "",
+  error: '',
 };
 
 export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, {
     ...initialState,
-    ...JSON.parse(localStorage.getItem("userData")),
+    ...JSON.parse(localStorage.getItem('userData')),
   });
 
   async function apiRequest(
     endpoint,
     body = null,
-    method = "GET",
-    contentType = "Application/json",
-    token = state.token || localStorage.getItem("token")
+    method = 'GET',
+    contentType = 'Application/json',
+    token = state.token || localStorage.getItem('token'),
   ) {
     const config = { method, headers: {} };
     if (body) {
       switch (contentType) {
-        case "multipart/form-data":
+        case 'multipart/form-data':
           config.body = body;
           break;
         default:
           config.body = JSON.stringify(body);
-          config.headers["Content-Type"] = contentType;
+          config.headers['Content-Type'] = contentType;
       }
     }
     if (token) config.headers.Authorization = `Bearer ${token}`;
@@ -77,23 +78,17 @@ export const GlobalProvider = ({ children }) => {
   async function login(payload) {
     try {
       dispatch({ type: LOGIN_USER_PENDING });
-      const {
-        success,
-        token,
-        userId,
-        regNumber,
-        role,
-        error,
-      } = await apiRequest("/api/v1/users/login", payload, "POST");
+      const { success, token, userId, regNumber, role, error } =
+        await apiRequest('/api/v1/users/login', payload, 'POST');
       if (success) {
         dispatch({
           type: LOGIN_USER,
           payload: { token, userId, regNumber, role },
         });
-        localStorage.setItem("token", token);
+        localStorage.setItem('token', token);
         localStorage.setItem(
-          "userData",
-          JSON.stringify({ userId, regNumber, role })
+          'userData',
+          JSON.stringify({ userId, regNumber, role }),
         );
       } else {
         dispatch({ type: LOGIN_USER_ERROR, payload: error });
@@ -110,15 +105,15 @@ export const GlobalProvider = ({ children }) => {
       const { success, error } = await apiRequest(
         ENDPOINTS.register,
         payload,
-        "POST"
+        'POST',
       );
       if (!success) {
         return dispatch({
           type: REGISTER_USER_ERROR,
-          payload: error || "Registration failed!",
+          payload: error || 'Registration failed!',
         });
       }
-      dispatch({ type: REGISTER_USER, payload: "Registered successfully" });
+      dispatch({ type: REGISTER_USER, payload: 'Registered successfully' });
     } catch (error) {
       console.log(error.message);
       dispatch({ type: REGISTER_USER_ERROR, payload: error.message });
@@ -136,20 +131,30 @@ export const GlobalProvider = ({ children }) => {
   function cleanError() {
     dispatch({
       type: CLEAN_ERROR,
-      payload: { error: "" },
+      payload: { error: '' },
+    });
+  }
+  function setError(payload) {
+    dispatch({
+      type: SET_ERROR,
+      payload,
     });
   }
 
   async function fetchNews(id) {
     try {
       dispatch({ type: FETCH_NEWS_PENDING });
-      const { success, error, data: news } = await apiRequest(
-        id === undefined ? ENDPOINTS.news : ENDPOINTS.newsByAuthor + id
+      const {
+        success,
+        error,
+        data: news,
+      } = await apiRequest(
+        id === undefined ? ENDPOINTS.news : ENDPOINTS.newsByAuthor + id,
       );
       if (!success) {
         return dispatch({
           type: FETCH_NEWS_ERROR,
-          payload: error || "Failed to load news! Try Reloading...",
+          payload: error || 'Failed to load news! Try Reloading...',
         });
       }
       dispatch({ type: FETCH_NEWS_SUCCESS, payload: news });
@@ -165,19 +170,19 @@ export const GlobalProvider = ({ children }) => {
       const { success, error, count } = await apiRequest(
         ENDPOINTS.news + id,
         null,
-        "DELETE"
+        'DELETE',
       );
       if (!success || count <= 0)
         return dispatch({
           type: DELETE_NEWS_ERROR,
-          payload: error || "Unable to delete news",
+          payload: error || 'Unable to delete news',
         });
       dispatch({ type: DELETE_NEWS, payload: id });
     } catch (error) {
       console.log(error);
       dispatch({
         type: DELETE_NEWS_ERROR,
-        payload: error || "Unable to delete news",
+        payload: error || 'Unable to delete news',
       });
     }
   }
@@ -188,7 +193,7 @@ export const GlobalProvider = ({ children }) => {
       const { success, error, data } = await apiRequest(
         ENDPOINTS.news + id,
         payload,
-        "PUT"
+        'PUT',
       );
       if (!success)
         return dispatch({ type: UPDATE_NEWS_ERROR, payload: error });
@@ -198,7 +203,7 @@ export const GlobalProvider = ({ children }) => {
       console.log(error);
       dispatch({
         type: UPDATE_NEWS_ERROR,
-        payload: error || "Unable to update news",
+        payload: error || 'Unable to update news',
       });
     }
   }
@@ -209,8 +214,8 @@ export const GlobalProvider = ({ children }) => {
       const { success, data, error } = await apiRequest(
         ENDPOINTS.createNews,
         payload,
-        "POST",
-        "multipart/form-data"
+        'POST',
+        'multipart/form-data',
       );
       if (!success) {
         dispatch({ type: CREATE_NEWS_ERROR, payload: error });
@@ -222,7 +227,7 @@ export const GlobalProvider = ({ children }) => {
       console.log(error);
       dispatch({
         type: CREATE_NEWS_ERROR,
-        payload: error || "Unable to create news!",
+        payload: error || 'Unable to create news!',
       });
     }
   }
@@ -253,7 +258,7 @@ export const GlobalProvider = ({ children }) => {
       const { success, chat, error } = await apiRequest(
         ENDPOINTS.chat,
         payload,
-        "POST"
+        'POST',
       );
       if (!success) dispatch({ type: CREATE_CHATS_ERROR, payload: error });
       else dispatch({ type: CREATE_CHATS_SUCCESS, payload: chat });
@@ -279,6 +284,7 @@ export const GlobalProvider = ({ children }) => {
         login,
         logout,
         register,
+        setError,
       }}
     >
       {children}
