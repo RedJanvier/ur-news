@@ -26,7 +26,8 @@ import {
   UPDATE_NEWS_ERROR,
   UPDATE_NEWS_PENDING,
   UPDATE_NEWS_SUCCESS,
-} from "./actionTypes";
+  SET_ERROR,
+} from './actionTypes';
 
 const globalReducer = (state, action) => {
   switch (action.type) {
@@ -50,6 +51,7 @@ const globalReducer = (state, action) => {
     case CREATE_NEWS_ERROR:
       return { ...state, chatsPending: false, error: action.payload };
     case REGISTER_USER:
+    case SET_ERROR:
     case UPDATE_NEWS_ERROR:
     case REGISTER_USER_ERROR:
     case CREATE_CHATS_ERROR:

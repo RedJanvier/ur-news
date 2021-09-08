@@ -9,7 +9,6 @@ const UserSchema = new Schema(
     campus: {
       type: String,
       required: [true, 'Please Provide a campus'],
-      enum: ['CST'],
     },
     image: {
       type: String,
@@ -22,7 +21,6 @@ const UserSchema = new Schema(
     school: {
       type: String,
       required: [true, 'Please Provide a school'],
-      enum: ['ICT', 'ENG', 'MIN', 'SCI', 'ARC'],
     },
     department: {
       type: String,
