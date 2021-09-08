@@ -2486,9 +2486,9 @@
     universal-user-agent "^6.0.0"
 
 "@octokit/openapi-types@^10.1.0":
-  version "10.1.0"
-  resolved "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-10.1.0.tgz#43c2ce1ad0ad711869f0a366dfa04d48e06f2fa2"
-  integrity sha512-Nq5TMBwijRXco+Bm/Rq1n5maxxXsHLwd/Cm3lyNeOxbjyzAOSD0qmr4TwKCD4TN4rHZ7lq/tARuqSv/WJHF7IA==
+  version "10.1.1"
+  resolved "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-10.1.1.tgz#74607482d193e9c9cc7e23ecf04b1bde3eabb6d8"
+  integrity sha512-ygp/6r25Ezb1CJuVMnFfOsScEtPF0zosdTJDZ7mZ+I8IULl7DP1BS5ZvPRwglcarGPXOvS5sHdR0bjnVDDfQdQ==
 
 "@octokit/plugin-enterprise-rest@^6.0.1":
   version "6.0.1"
@@ -3206,10 +3206,17 @@
     eslint-visitor-keys "^2.0.0"
 
 "@ur-news/locations@file:packages/locations":
-  version "0.4.0"
+  version "0.5.0"
+  dependencies:
+    typescript "^4.4.2"
+
+"@ur-news/locations@latest":
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/@ur-news/locations/-/locations-0.6.0.tgz#c7e0e3aecb4114c465e6316d91466fb4bb137633"
+  integrity sha512-31pbVpCjK9RuEqzfukigWrFlG46UhvaiVBMI40v6JOvpcC0YJhfSMduBBJvLt9zWao+1b18xHuQbsb1ALFqr9g==
 
 "@ur-news/server@file:packages/server":
-  version "0.4.0"
+  version "0.5.0"
   dependencies:
     "@babel/cli" "^7.14.8"
     "@babel/core" "^7.9.6"
@@ -3240,7 +3247,7 @@
     supertest "^4.0.2"
 
 "@ur-news/web@file:packages/web":
-  version "0.4.0"
+  version "0.5.0"
   dependencies:
     "@ckeditor/ckeditor5-build-classic" "^19.0.2"
     "@ckeditor/ckeditor5-react" "^2.1.0"
@@ -3250,6 +3257,7 @@
     "@testing-library/jest-dom" "^4.2.4"
     "@testing-library/react" "^9.5.0"
     "@testing-library/user-event" "^7.2.1"
+    "@ur-news/locations" latest
     axios "^0.21.1"
     moment "^2.29.1"
     react "^16.13.1"
@@ -3472,9 +3480,9 @@ acorn@^7.1.0, acorn@^7.1.1, acorn@^7.4.0:
   integrity sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
 
 acorn@^8.2.4:
-  version "8.4.1"
-  resolved "https://registry.npmjs.org/acorn/-/acorn-8.4.1.tgz#56c36251fc7cabc7096adc18f05afe814321a28c"
-  integrity sha512-asabaBSkEKosYKMITunzX177CXxQ4Q8BSSzMTKD+FefUhipQC70gfW5SiUDhYQ3vk8G+81HqQk7Fv9OXwwn9KA==
+  version "8.5.0"
+  resolved "https://registry.npmjs.org/acorn/-/acorn-8.5.0.tgz#4512ccb99b3698c752591e9bb4472e38ad43cee2"
+  integrity sha512-yXbYeFy+jUuYd3/CDcg2NkIYE991XYX/bje7LmjJigUciaeO1JR4XxXgCIV1/Zc/dRuFEyw1L0pbA+qynJkW5Q==
 
 add-stream@^1.0.0:
   version "1.0.0"
@@ -4635,9 +4643,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001125, caniuse-lite@^1.0.30001254:
-  version "1.0.30001254"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001254.tgz#974d45e8b7f6e3b63d4b1435e97752717612d4b9"
-  integrity sha512-GxeHOvR0LFMYPmFGA+NiTOt9uwYDxB3h154tW2yBYwfz2EMX3i1IBgr6gmJGfU0K8KQsqPa5XqLD8zVdP5lUzA==
+  version "1.0.30001255"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001255.tgz#f3b09b59ab52e39e751a569523618f47c4298ca0"
+  integrity sha512-F+A3N9jTZL882f/fg/WWVnKSu6IOo3ueLz4zwaOPbPYHNmM/ZaDUyzyJwS1mZhX7Ex5jqTyW599Gdelh5PDYLQ==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -7514,9 +7522,9 @@ git-up@^4.0.0:
     parse-url "^6.0.0"
 
 git-url-parse@^11.4.4:
-  version "11.5.0"
-  resolved "https://registry.npmjs.org/git-url-parse/-/git-url-parse-11.5.0.tgz#acaaf65239cb1536185b19165a24bbc754b3f764"
-  integrity sha512-TZYSMDeM37r71Lqg1mbnMlOqlHd7BSij9qN7XwTkRqSAYFMihGLGhfHwgqQob3GUhEneKnV4nskN9rbQw2KGxA==
+  version "11.6.0"
+  resolved "https://registry.npmjs.org/git-url-parse/-/git-url-parse-11.6.0.tgz#c634b8de7faa66498a2b88932df31702c67df605"
+  integrity sha512-WWUxvJs5HsyHL6L08wOusa/IXYtMuCAhrMmnTjQPpBU0TTHyDhnOATNH3xNQz7YOQUsqIIPTGr4xiVti1Hsk5g==
   dependencies:
     git-up "^4.0.0"
 
@@ -10498,9 +10506,9 @@ node-environment-flags@^1.0.5:
     semver "^5.7.0"
 
 node-fetch@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
-  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
+  version "2.6.2"
+  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.2.tgz#986996818b73785e47b1965cc34eb093a1d464d0"
+  integrity sha512-aLoxToI6RfZ+0NOjmWAgn9+LEd30YCkJKFSyWacNZdEKTit/ZMcKjGkTRo8uWEsnIb/hfKecNPEbln02PdWbcA==
 
 node-forge@^0.10.0:
   version "0.10.0"
@@ -14825,6 +14833,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typescript@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-4.4.2.tgz#6d618640d430e3569a1dfb44f7d7e600ced3ee86"
+  integrity sha512-gzP+t5W4hdy4c+68bfcv0t400HVJMMd2+H9B7gae1nQlBzCqvrXX+6GL/b3GAgyTH966pzrZ70/fRjwAtZksSQ==
 
 uglify-js@^3.1.4:
   version "3.14.1"

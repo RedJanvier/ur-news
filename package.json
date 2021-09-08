@@ -14,6 +14,7 @@
     "publish:locations": "lerna run publish --scope=@ur-news/locations",
     "release": "lerna version --conventional-commits --yes && yarn publish:locations",
     "start:server": "lerna run start --scope=@ur-news/server",
+    "build:locations": "lerna run build --scope=@ur-news/locations",
     "build:web": "lerna run build --scope=@ur-news/web",
     "build": "lerna run build --stream --parallel",
     "start": "lerna run start --stream --parallel",
