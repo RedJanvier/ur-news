@@ -12,7 +12,7 @@ const NavBar = ({ changeLinksView, showLinks }) => {
   const hamburgerBtn = <FontAwesomeIcon icon={faBars} />;
 
   return (
-    <>
+    <div className='mb-6'>
       <div className='search'>
         <NavLink to='/home' className='logo'>
           <img
@@ -113,7 +113,7 @@ const NavBar = ({ changeLinksView, showLinks }) => {
           </li>
         )}
       </ul>
-    </>
+    </div>
   );
 };
 
