@@ -281,10 +281,10 @@ export const GlobalProvider = ({ children }) => {
         cleanError,
         apiRequest,
         fetchNews,
+        setError,
         login,
         logout,
         register,
-        setError,
       }}
     >
       {children}

@@ -1,8 +1,9 @@
 .news-list {
-  margin: 6em 3em;
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  margin: 5rem auto;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 600px;
 }
 .news-list .confirmation {
   position: absolute;
@@ -13,9 +14,7 @@
 
 @media screen and (max-width: 845px) {
   .news-list {
-    margin: 1rem 0.2rem;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(2, 1fr);
+    margin-top: 1rem;
   }
   .news-list .confirmation {
     margin: 0 -10rem 0 4rem;
@@ -23,9 +22,6 @@
   }
 }
 @media screen and (max-width: 767px) {
-  .news-list {
-    grid-template-columns: 1fr;
-  }
   .news-list .confirmation {
     transform: translate(-70%);
   }

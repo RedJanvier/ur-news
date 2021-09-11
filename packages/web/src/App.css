@@ -1,56 +1,71 @@
 @font-face {
   font-size: normal;
   font-weight: normal;
-  font-family: "BOOKMAN OLD STYLE";
-  src: url("./BOOKMAN\ OLD\ STYLE.ttf");
+  font-family: 'BOOKMAN OLD STYLE';
+  src: url('./BOOKMAN\ OLD\ STYLE.ttf');
 }
 * {
-  font-family: "BOOKMAN OLD STYLE";
+  font-family: 'BOOKMAN OLD STYLE';
   font-weight: 200;
   box-sizing: border-box;
 }
 :root {
-  --bg-primary: #272a5a;
-  --bg-primary-transparent: #272a5a70;
-  --bg-secondary: #545cd4;
-  --text-primary: #1c1c34;
-  --text-secondary: #e2e4ee;
+  --primary-color: #272a5a;
+  --primary-color-transparent: #272a5a70;
+  --secondary-color: #545cd4;
+  --dark-color: #1c1c34;
+  --dark-color-light: #f2f2f2;
+  --border-color: #c7c7c7;
+  --white-color: #fefefe;
 }
 body {
-  background: var(--bg-primary);
+  background: var(--dark-color-light);
   position: relative;
+}
+.container {
+  display: flex;
+  max-width: 1100px;
+  width: 90%;
+  margin: 0 auto;
 }
 .btn {
   color: #fff;
-  background: var(--bg-primary);
+  background: var(--primary-color);
 }
 .btn:hover {
   color: #fff;
-  background: var(--bg-secondary);
+  background: var(--secondary-color);
 }
 .btn-light {
   color: white;
-  background: var(--bg-secondary);
+  background: var(--secondary-color);
 }
 .btn-light:hover {
-  background: var(--text-primary);
+  background: var(--dark-color);
 }
 .page {
+  flex: 1;
+}
+.container,
+.page {
   margin-top: 6rem;
+  /* flex: 1; */
 }
 a {
   text-decoration: none;
-  color: var(--bg-primary);
+  color: var(--primary-color);
 }
 a:hover {
-  color: var(--bg-secondary);
+  color: var(--secondary-color);
 }
 @media screen and (max-width: 1208px) {
+  .container,
   .page {
     margin-top: 10rem;
   }
 }
 @media screen and (max-width: 845px) {
+  .container,
   .page {
     margin: 0;
     padding-top: 4rem;

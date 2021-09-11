@@ -6,16 +6,19 @@
 .search .logo h2 {
   padding: 0 0.2rem;
 }
+.mb-6 {
+  margin-bottom: 6rem;
+}
 .hamburger {
   display: none;
   background: none;
   outline: none;
   border: none;
   font-size: 26px;
-  color: var(--bg-primary);
+  color: var(--primary-color);
 }
 .hamburger:hover {
-  color: var(--bg-secondary);
+  color: var(--secondary-color);
 }
 ul.mobile,
 ul.mobile.hide {
@@ -29,9 +32,9 @@ ul.mobile.hide {
   top: 0;
   left: 0;
   z-index: 3;
-  color: var(--bg-primary);
+  color: var(--primary-color);
   justify-content: space-evenly;
-  background: #fcfcfc;
+  background: #fefefe;
   align-items: center;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.12);
 }
@@ -42,7 +45,7 @@ ul.mobile.hide {
   align-items: center;
 }
 .otherBtns {
-  color: var(--bg-primary);
+  color: var(--primary-color);
   font-size: 1.2rem;
   font-family: Arial, Helvetica, sans-serif;
   padding: 11px;
@@ -53,7 +56,7 @@ ul.mobile.hide {
   font-weight: normal;
 }
 .otherBtns:hover {
-  color: var(--bg-secondary);
+  color: var(--secondary-color);
 }
 ul.mobile {
   margin: 4rem 0 0 0;
@@ -69,7 +72,7 @@ ul.mobile button {
 ul.mobile li:hover a,
 ul.mobile li:hover button {
   color: #fff;
-  background: var(--bg-secondary);
+  background: var(--secondary-color);
 }
 
 @media screen and (max-width: 1208px) {

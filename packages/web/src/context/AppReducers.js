@@ -50,8 +50,8 @@ const globalReducer = (state, action) => {
     case FETCH_CHATS_ERROR:
     case CREATE_NEWS_ERROR:
       return { ...state, chatsPending: false, error: action.payload };
-    case REGISTER_USER:
     case SET_ERROR:
+    case REGISTER_USER:
     case UPDATE_NEWS_ERROR:
     case REGISTER_USER_ERROR:
     case CREATE_CHATS_ERROR:
