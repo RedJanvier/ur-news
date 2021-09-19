@@ -4,9 +4,11 @@
   "description": "UR News Poster server",
   "main": "src/app.js",
   "scripts": {
-    "test": "jest src/__tests__/index.test.js --env=jsdom --verbose=false --forceExit",
-    "build": "babel src --out-dir build",
+    "compile": "tsc",
+    "watch": "tsc --watch",
     "dev": "babel-node src/app",
+    "build": "babel src --out-dir build",
+    "test": "jest src/__tests__/index.test.js --env=jsdom --verbose=false --forceExit",
     "start": "nodemon --exec babel-node src/app"
   },
   "keywords": [],

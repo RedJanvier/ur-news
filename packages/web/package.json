@@ -24,6 +24,8 @@
     "socket.io-client": "^3.1.0"
   },
   "scripts": {
+    "compile": "tsc",
+    "watch": "tsc --watch",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
