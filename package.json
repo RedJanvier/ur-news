@@ -1,22 +1,27 @@
 {
-  "name": "ur-news",
-  "version": "0.0.1",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
     "lerna": "^4.0.0",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "typescript": "^4.4.3"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "postinstall": "yarn run compile",
+    "bootstrap": "lerna bootstrap --force-local && lerna link --force-local",
     "publish:locations": "lerna run publish --scope=@ur-news/locations",
     "release": "lerna version --conventional-commits --yes && yarn publish:locations",
-    "start:server": "lerna run start --scope=@ur-news/server",
     "build:locations": "lerna run build --scope=@ur-news/locations",
+    "watch:locations": "lerna run watch --scope=@ur-news/locations",
+    "start:server": "lerna run start --scope=@ur-news/server",
+    "watch:server": "lerna run watch --scope=@ur-news/server",
     "build:web": "lerna run build --scope=@ur-news/web",
+    "watch:web": "lerna run watch --scope=@ur-news/web",
+    "watch": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
+    "compile": "lerna run compile --stream --parallel",
     "start": "lerna run start --stream --parallel",
     "test": "lerna run test"
   },

@@ -17,17 +17,23 @@
   "directories": {
     "lib": "lib"
   },
+  "repository": {
+    "directory": "packages/locations",
+    "url": "git+https://github.com/redjanvier/ur-news",
+    "type": "git"
+  },
   "scripts": {
+    "build": "yarn run compile",
     "publish": "npm publish",
-    "start": "tsc -w",
-    "build": "tsc"
+    "watch": "tsc -w",
+    "compile": "tsc"
   },
   "publishConfig": {
     "access": "public",
     "scope": "@ur-news",
     "registry": "https://registry.npmjs.org/@ur-news/locations"
   },
-  "dependencies": {
+  "devDependencies": {
     "typescript": "^4.4.2"
   }
 }

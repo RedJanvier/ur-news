@@ -3206,9 +3206,7 @@
     eslint-visitor-keys "^2.0.0"
 
 "@ur-news/locations@file:packages/locations":
-  version "0.5.0"
-  dependencies:
-    typescript "^4.4.2"
+  version "0.6.1"
 
 "@ur-news/locations@latest":
   version "0.6.0"
@@ -3216,13 +3214,14 @@
   integrity sha512-31pbVpCjK9RuEqzfukigWrFlG46UhvaiVBMI40v6JOvpcC0YJhfSMduBBJvLt9zWao+1b18xHuQbsb1ALFqr9g==
 
 "@ur-news/server@file:packages/server":
-  version "0.5.0"
+  version "0.6.1"
   dependencies:
     "@babel/cli" "^7.14.8"
     "@babel/core" "^7.9.6"
     "@babel/node" "^7.8.7"
     "@babel/polyfill" "^7.10.1"
     "@babel/preset-env" "^7.9.6"
+    "@ur-news/locations" latest
     bcryptjs "^2.4.3"
     cloudinary "^1.22.0"
     colors "^1.4.0"
@@ -3247,7 +3246,7 @@
     supertest "^4.0.2"
 
 "@ur-news/web@file:packages/web":
-  version "0.5.0"
+  version "0.6.1"
   dependencies:
     "@ckeditor/ckeditor5-build-classic" "^19.0.2"
     "@ckeditor/ckeditor5-react" "^2.1.0"
@@ -14834,10 +14833,10 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.4.2.tgz#6d618640d430e3569a1dfb44f7d7e600ced3ee86"
-  integrity sha512-gzP+t5W4hdy4c+68bfcv0t400HVJMMd2+H9B7gae1nQlBzCqvrXX+6GL/b3GAgyTH966pzrZ70/fRjwAtZksSQ==
+typescript@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-4.4.3.tgz#bdc5407caa2b109efd4f82fe130656f977a29324"
+  integrity sha512-4xfscpisVgqqDfPaJo5vkd+Qd/ItkoagnHpufr+i2QCHBsNYp+G7UAoyFl8aPtx879u38wPV65rZ8qbGZijalA==
 
 uglify-js@^3.1.4:
   version "3.14.1"
