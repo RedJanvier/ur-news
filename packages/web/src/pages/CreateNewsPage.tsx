@@ -1,17 +1,32 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext, useEffect, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import classicEditor from '@ckeditor/ckeditor5-build-classic';
-import * as locations from '@ur-news/locations';
+// import Editor from '../components/shared/Editor';
 import Toast from '../components/Toast/Toast';
 import Modal from '../components/Modal/Modal';
 import Spinner from '../components/Spinner/Spinner';
-import { GlobalContext } from '../context/GlobalState';
 
-const CreateNews = () => {
+const locations = require('@ur-news/locations');
+const { GlobalContext } = require('../context/GlobalState');
+const Editor = require('../components/shared/Editor.tsx');
+
+interface ILocation {
+  text: string;
+  abbr: string;
+}
+
+interface INews {
+  title: string;
+  target: string;
+  targetType: string;
+  description: string;
+  addImage: boolean;
+  addFile: boolean;
+}
+
+const CreateNews: React.FC<{}> = () => {
   const { pending, error, createNews } = useContext(GlobalContext);
   const history = useHistory();
-  const [state, setState] = useState({
+  const [state, setState] = useState<INews>({
     title: '',
     target: '',
     targetType: '',
@@ -19,27 +34,36 @@ const CreateNews = () => {
     addImage: false,
     addFile: false,
   });
-  const [targets, setTargets] = useState([]);
-  const [img, setImg] = useState({});
-  const [file, setFile] = useState({});
+  const [targets, setTargets] = useState<ILocation[]>([]);
+  const [img, setImg] = useState<Blob | null>(null);
+  const [file, setFile] = useState<Blob | null>(null);
   useEffect(() => {
     document.title = 'Create News - UR News Post';
+    // eslint-disable-next-line
   }, []);
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const { addFile, addImage } = state;
-    const payload = new FormData();
-    for (const property in state) {
-      payload.append(property, state[property]);
+    try {
+      const payload = new FormData();
+      payload.append('title', state.title);
+      payload.append('target', state.target);
+      payload.append('targetType', state.targetType);
+      payload.append('description', state.description);
+      if (state.addImage && img) payload.append('img', img);
+      if (state.addFile && file) payload.append('file', file);
+
+      const success = await createNews(payload);
+      if (success) return history.push('/home');
+      console.log('Unkown error while creating news');
+    } catch (error) {
+      console.log(error);
     }
-    if (addImage) payload.append('img', img);
-    if (addFile) payload.append('file', file);
-    const success = await createNews(payload);
-    if (success) return history.push('/home');
   };
 
-  const handleTargetTypeChange = (e) => {
-    const { value } = e.target;
+  const handleTargetTypeChange = (e: FormEvent<HTMLSelectElement>) => {
+    const { value } = e.target as typeof e.target & {
+      value: 'colleges' | 'schools' | 'departments' | 'combinations';
+    };
     switch (value) {
       case 'colleges':
         setState({ ...state, targetType: 'campus' });
@@ -54,15 +78,18 @@ const CreateNews = () => {
         setState({ ...state, targetType: 'class' });
         break;
       default:
+        console.log('Unkown targetType');
+        break;
     }
 
-    let res = [];
+    let res: ILocation[] = [];
 
     for (const key in locations[value]) {
       if (Object.hasOwnProperty.call(locations[value], key) && key) {
         const element = locations[value][key];
-
         res = [...res, ...element];
+      } else {
+        console.log(`Key: ${key} has no associated value in locations`);
       }
     }
 
@@ -86,12 +113,9 @@ const CreateNews = () => {
           </div>
           <div className='form-control'>
             <label htmlFor='description'>Description</label>
-            <CKEditor
-              data={state.description}
-              editor={classicEditor}
-              onChange={(_, editor) =>
-                setState({ ...state, description: editor.getData() })
-              }
+            <Editor
+              onChange={(value) => setState({ ...state, description: value })}
+              value={state.description}
             />
           </div>
           <div className='form-control'>
@@ -115,6 +139,7 @@ const CreateNews = () => {
               <input
                 type='file'
                 name='image'
+                // @ts-ignore: Object is possibly 'null'.
                 onChange={(e) => setImg(e.target.files[0])}
                 placeholder='News image'
                 required
@@ -140,6 +165,7 @@ const CreateNews = () => {
               <input
                 type='file'
                 name='file'
+                // @ts-ignore: Object is possibly 'null'.
                 onChange={(e) => setFile(e.target.files[0])}
                 placeholder='News file'
                 required
@@ -172,17 +198,13 @@ const CreateNews = () => {
               <option value='' disabled>
                 Select your Audience
               </option>
-              {targets.map((t) => (
+              {targets.map((t: ILocation) => (
                 <option value={t.abbr}>{t.text}</option>
               ))}
             </select>
           </div>
           <div className='form-control'>
-            <button
-              onClick={handleSubmit}
-              className='btn'
-              disabled={pending ? 'disabled' : ''}
-            >
+            <button onClick={handleSubmit} className='btn' disabled={pending}>
               {pending ? <Spinner /> : 'Create'}
             </button>
           </div>

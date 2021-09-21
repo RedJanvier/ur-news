@@ -1,10 +1,10 @@
-import React from "react";
-import classes from "../../styles/ChatIcon.module.css";
+import React from 'react';
+import classes from '../../styles/ChatIcon.module.css';
 
 const ChatIcon = ({ clickHandler }) => {
   return (
     <button onClick={clickHandler} className={classes.icon}>
-      <i class="fa fa-comment"></i>
+      <i className='fa fa-comment'></i>
     </button>
   );
 };

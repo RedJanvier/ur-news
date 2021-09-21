@@ -3,7 +3,7 @@ _.log
 npm-debug.log_
 yarn-debug.log*
 yarn-error.log*
-lerna-debug.log\*
+lerna-debug.log
 report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 coverage
 \*.lcov
@@ -20,8 +20,9 @@ node_modules/
 package-lock.json
 tmp
 
-/packages/**/build
+/packages/web.old
+/packages/**/out
 /packages/**/.env
+/packages/**/build
+/packages/web/src/index.js
 /packages/server/src/utils/errorRespones.js
-/packages/web/src/components/Spinner/Spinner.js
-/packages/web/src/components/shared/Tag.js

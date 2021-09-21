@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import * as locations from '@ur-news/locations';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import classicEditor from '@ckeditor/ckeditor5-build-classic';
 import Toast from '../components/Toast/Toast';
@@ -9,15 +8,35 @@ import Modal from '../components/Modal/Modal';
 import Spinner from '../components/Spinner/Spinner';
 import { GlobalContext } from '../context/GlobalState';
 
-const EditNews = ({
+const locations = require('@ur-news/locations');
+
+interface IProps {
+  match: any;
+}
+
+interface ILocation {
+  text: string;
+  abbr: string;
+}
+
+interface INews {
+  title: string;
+  target: string;
+  targetType: string;
+  description: string;
+  addImage: boolean;
+  addFile: boolean;
+}
+
+const EditNews: React.FC<IProps> = ({
   match: {
     params: { newsId },
   },
 }) => {
   const history = useHistory();
   const { news, pending, error, updateNews } = useContext(GlobalContext);
-  const [targets, setTargets] = useState([]);
-  const [oldNews, setOldNews] = useState({});
+  const [targets, setTargets] = useState<ILocation[]>([]);
+  const [oldNews, setOldNews] = useState<INews>();
   useEffect(() => {
     document.title = 'Edit News';
     setOldNews(news.find((n) => n._id === newsId));
@@ -226,11 +245,7 @@ const EditNews = ({
               </select>
             </div>
             <div className='form-control'>
-              <button
-                onClick={handleSubmit}
-                className='btn'
-                disabled={pending ? 'disabled' : ''}
-              >
+              <button onClick={handleSubmit} className='btn' disabled={pending}>
                 {pending ? <Spinner /> : 'Update'}
               </button>
             </div>

@@ -1,6 +1,7 @@
 {
   "name": "@ur-news/locations",
   "version": "0.6.1",
+  "types": "@types/index.d.ts",
   "description": "A list of all locations (Colleges, Schools, Departments, and Combinations) in University of Rwanda.",
   "keywords": [
     "ur-news-locations",
@@ -25,6 +26,7 @@
   "scripts": {
     "build": "yarn run compile",
     "publish": "npm publish",
+    "start": "tsc -w",
     "watch": "tsc -w",
     "compile": "tsc"
   },

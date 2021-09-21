@@ -32,6 +32,31 @@ import {
   SET_ERROR,
 } from './actionTypes';
 
+interface IValues {
+  updateChats?: any;
+  createChat?: any;
+  fetchChats?: any;
+  deleteNews?: any;
+  updateNews?: any;
+  createNews?: any;
+  cleanError?: any;
+  apiRequest?: any;
+  fetchNews?: any;
+  setError?: any;
+  login?: any;
+  logout?: any;
+  register?: any;
+  error: any;
+  chats: any[];
+  news: any[];
+  role: string;
+  regNumber: string | number;
+  userId: string;
+  token: string;
+  chatsPending: boolean;
+  pending: boolean;
+}
+
 const initialState = {
   pending: false,
   chatsPending: false,
@@ -44,7 +69,7 @@ const initialState = {
   error: '',
 };
 
-export const GlobalContext = createContext(initialState);
+export const GlobalContext = createContext<IValues>(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, {
     ...initialState,
@@ -56,9 +81,13 @@ export const GlobalProvider = ({ children }) => {
     body = null,
     method = 'GET',
     contentType = 'Application/json',
-    token = state.token || localStorage.getItem('token'),
+    token = state.token || localStorage.getItem('token')
   ) {
-    const config = { method, headers: {} };
+    const config = {
+      method,
+      headers: { Authorization: undefined },
+      body: undefined,
+    };
     if (body) {
       switch (contentType) {
         case 'multipart/form-data':
@@ -88,7 +117,7 @@ export const GlobalProvider = ({ children }) => {
         localStorage.setItem('token', token);
         localStorage.setItem(
           'userData',
-          JSON.stringify({ userId, regNumber, role }),
+          JSON.stringify({ userId, regNumber, role })
         );
       } else {
         dispatch({ type: LOGIN_USER_ERROR, payload: error });
@@ -105,7 +134,7 @@ export const GlobalProvider = ({ children }) => {
       const { success, error } = await apiRequest(
         ENDPOINTS.register,
         payload,
-        'POST',
+        'POST'
       );
       if (!success) {
         return dispatch({
@@ -149,7 +178,7 @@ export const GlobalProvider = ({ children }) => {
         error,
         data: news,
       } = await apiRequest(
-        id === undefined ? ENDPOINTS.news : ENDPOINTS.newsByAuthor + id,
+        id === undefined ? ENDPOINTS.news : ENDPOINTS.newsByAuthor + id
       );
       if (!success) {
         return dispatch({
@@ -170,7 +199,7 @@ export const GlobalProvider = ({ children }) => {
       const { success, error, count } = await apiRequest(
         ENDPOINTS.news + id,
         null,
-        'DELETE',
+        'DELETE'
       );
       if (!success || count <= 0)
         return dispatch({
@@ -193,7 +222,7 @@ export const GlobalProvider = ({ children }) => {
       const { success, error, data } = await apiRequest(
         ENDPOINTS.news + id,
         payload,
-        'PUT',
+        'PUT'
       );
       if (!success)
         return dispatch({ type: UPDATE_NEWS_ERROR, payload: error });
@@ -215,7 +244,7 @@ export const GlobalProvider = ({ children }) => {
         ENDPOINTS.createNews,
         payload,
         'POST',
-        'multipart/form-data',
+        'multipart/form-data'
       );
       if (!success) {
         dispatch({ type: CREATE_NEWS_ERROR, payload: error });
@@ -258,7 +287,7 @@ export const GlobalProvider = ({ children }) => {
       const { success, chat, error } = await apiRequest(
         ENDPOINTS.chat,
         payload,
-        'POST',
+        'POST'
       );
       if (!success) dispatch({ type: CREATE_CHATS_ERROR, payload: error });
       else dispatch({ type: CREATE_CHATS_SUCCESS, payload: chat });
@@ -268,26 +297,24 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
+  const value: IValues = {
+    ...state,
+    updateChats,
+    createChat,
+    fetchChats,
+    deleteNews,
+    updateNews,
+    createNews,
+    cleanError,
+    apiRequest,
+    fetchNews,
+    setError,
+    login,
+    logout,
+    register,
+  };
+
   return (
-    <GlobalContext.Provider
-      value={{
-        ...state,
-        updateChats,
-        createChat,
-        fetchChats,
-        deleteNews,
-        updateNews,
-        createNews,
-        cleanError,
-        apiRequest,
-        fetchNews,
-        setError,
-        login,
-        logout,
-        register,
-      }}
-    >
-      {children}
-    </GlobalContext.Provider>
+    <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
   );
 };

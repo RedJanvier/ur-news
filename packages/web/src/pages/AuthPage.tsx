@@ -1,15 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
-import {
-  combinations,
-  schools,
-  departments,
-  colleges,
-} from '@ur-news/locations';
 import { GlobalContext } from '../context/GlobalState';
 import Spinner from '../components/Spinner/Spinner';
 import Modal from '../components/Modal/Modal';
 import Toast from '../components/Toast/Toast';
 import './AuthPage.css';
+
+const {
+  combinations,
+  schools,
+  departments,
+  colleges,
+} = require('@ur-news/locations');
 
 const AuthPage = () => {
   const { login, register, error, pending, setError } =
@@ -44,7 +45,7 @@ const AuthPage = () => {
       const { audienceLocation } = state;
       if (state.name.trim().length < 6)
         return setError('Please provide a name!');
-      if (!regexes.regNumber.test(state.regNumber))
+      if (!regexes.regNumber.test(state.regNumber.toString()))
         return setError('Please provide a valid reg. Number!');
       if (state.password.trim().length < 7)
         return setError('Password must be atleast 7 characters');
@@ -183,7 +184,7 @@ const AuthPage = () => {
                   {departments[state.audienceLocation.school].map(
                     (department) => (
                       <option value={department.abbr}>{department.text}</option>
-                    ),
+                    )
                   )}
                 </select>
               </div>
@@ -209,18 +210,14 @@ const AuthPage = () => {
                       <option value={combination.abbr}>
                         {combination.text}
                       </option>
-                    ),
+                    )
                   )}
                 </select>
               </div>
             </>
           )}
           <div className='form-control'>
-            <button
-              type='submit'
-              className='btn'
-              disabled={pending ? 'disabled' : ''}
-            >
+            <button type='submit' className='btn' disabled={pending}>
               {!pending ? `${state.page}` : <Spinner />}
             </button>
             <button

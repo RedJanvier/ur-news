@@ -7,7 +7,12 @@ import { GlobalContext } from '../../context/GlobalState';
 import logo from '../../assets/logo.png';
 import './Search.css';
 
-const NavBar = ({ changeLinksView, showLinks }) => {
+interface IProps {
+  changeLinksView?: (e: any) => void;
+  showLinks?: boolean;
+}
+
+const NavBar: React.FC<IProps> = ({ changeLinksView, showLinks }) => {
   const { token, logout, role, regNumber } = useContext(GlobalContext);
   const hamburgerBtn = <FontAwesomeIcon icon={faBars} />;
 

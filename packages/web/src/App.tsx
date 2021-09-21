@@ -66,9 +66,7 @@ const App = () => {
             <Route exact path='/home' component={HomePage} />
             <Route exact path='/created' component={HomePage} />
             <Route exact path='/profile/:regNumber' component={ProfilePage} />
-            <PrivateRoute exact path='/create'>
-              <CreateNewsPage role={role} token={token} />
-            </PrivateRoute>
+            <PrivateRoute exact path='/create' component={CreateNewsPage} />
             <PrivateRoute exact path='/admin' component={AdminPage} />
             <PrivateRoute exact path='/post/:id' component={SingleNews} />
             <PrivateRoute

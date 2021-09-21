@@ -10,13 +10,25 @@ import Spinner from '../Spinner/Spinner';
 import { GlobalContext } from '../../context/GlobalState';
 import Tag from '../shared/Tag';
 
+interface IUser {
+  _id: string;
+  name: string;
+  regNumber: any;
+  email: string;
+  department: string;
+  school: string;
+  field: string;
+  campus: string;
+}
+
 const ChangeProfile = () => {
   const [img, setImg] = useState('');
-  const { regNumber } = useParams();
-  const [imgUrl, setImgUrl] = useState(
+  const { regNumber } = useParams<{ regNumber: string }>();
+  const [imgUrl, setImgUrl] = useState<string>(
     'https://res.cloudinary.com/redjanvier/image/upload/v1592564639/blank-profile-picture-973460_640_l3acum.png'
   );
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<IUser>({
+    _id: '',
     name: '',
     regNumber,
     email: '',
@@ -26,7 +38,7 @@ const ChangeProfile = () => {
     campus: 'CST',
   });
   const editBtn = <FontAwesomeIcon icon={faPencilAlt} />;
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const { userId, token } = useContext(GlobalContext);
   const history = useHistory();
 
@@ -44,12 +56,12 @@ const ChangeProfile = () => {
   }, []);
 
   const handleFileSelect = (e) => {
-    let reader = new FileReader();
+    let reader: FileReader = new FileReader();
     let file = e.target.files[0];
 
     reader.onloadend = () => {
       setImg(file);
-      setImgUrl(reader.result);
+      setImgUrl(reader.result as string);
     };
 
     reader.readAsDataURL(file);
