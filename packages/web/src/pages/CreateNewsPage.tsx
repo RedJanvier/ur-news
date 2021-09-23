@@ -1,13 +1,11 @@
 import React, { useState, useContext, useEffect, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
-// import Editor from '../components/shared/Editor';
+import * as locations from '@ur-news/locations';
 import Toast from '../components/Toast/Toast';
 import Modal from '../components/Modal/Modal';
 import Spinner from '../components/Spinner/Spinner';
-
-const locations = require('@ur-news/locations');
-const { GlobalContext } = require('../context/GlobalState');
-const Editor = require('../components/shared/Editor.tsx');
+import { GlobalContext } from '../context/GlobalState';
+import Editor from '../components/shared/Editor';
 
 interface ILocation {
   text: string;
@@ -39,6 +37,7 @@ const CreateNews: React.FC<{}> = () => {
   const [file, setFile] = useState<Blob | null>(null);
   useEffect(() => {
     document.title = 'Create News - UR News Post';
+
     // eslint-disable-next-line
   }, []);
   const handleSubmit = async (e: React.SyntheticEvent) => {
