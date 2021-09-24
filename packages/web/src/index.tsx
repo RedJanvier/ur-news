@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { debugContextDevtool } from 'react-context-devtool';
 import { GlobalProvider as Provider } from './context/GlobalState';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 

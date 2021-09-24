@@ -1,8 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, FormEvent } from 'react';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { useHistory } from 'react-router-dom';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import classicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+// import CKEditor from '@ckeditor/ckeditor5-react';
+// import classicEditor from '@ckeditor/ckeditor5-build-classic';
 import Toast from '../components/Toast/Toast';
 import Modal from '../components/Modal/Modal';
 import Spinner from '../components/Spinner/Spinner';
@@ -23,9 +27,14 @@ interface INews {
   title: string;
   target: string;
   targetType: string;
-  description: string;
+  description?: EditorState;
   addImage: boolean;
   addFile: boolean;
+  creator: {
+    id: string;
+    image?: string;
+    name: string;
+  };
 }
 
 const EditNews: React.FC<IProps> = ({
@@ -37,9 +46,24 @@ const EditNews: React.FC<IProps> = ({
   const { news, pending, error, updateNews } = useContext(GlobalContext);
   const [targets, setTargets] = useState<ILocation[]>([]);
   const [oldNews, setOldNews] = useState<INews>();
+
+  const changeHtmlToDraft = (html: string): EditorState => {
+    const contentBlock = htmlToDraft(html);
+    const contentState = ContentState.createFromBlockArray(
+      contentBlock.contentBlocks
+    );
+    const editorState = EditorState.createWithContent(contentState);
+    return editorState;
+  };
+
   useEffect(() => {
     document.title = 'Edit News';
-    setOldNews(news.find((n) => n._id === newsId));
+    const found: INews | null = news.find((n) => n._id === newsId);
+    if (found)
+      setOldNews({
+        ...found,
+        description: changeHtmlToDraft(found.description),
+      });
   }, [news, newsId]);
 
   // const [state, setState] = useState({
@@ -72,36 +96,39 @@ const EditNews: React.FC<IProps> = ({
   // };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await updateNews(newsId, oldNews);
+    const success = await updateNews(newsId, {
+      ...oldNews,
+      description: draftToHtml(
+        convertToRaw(oldNews.description.getCurrentContent())
+      ),
+      creator: oldNews.creator.id,
+    });
     success && history.push('/home');
   };
 
-  const handleTargetTypeChange = (e) => {
-    const { value } = e.target;
+  const handleTargetTypeChange = (e: FormEvent<HTMLSelectElement>) => {
+    const { value: val } = e.target as typeof e.target & {
+      value: 'campus' | 'school' | 'department' | 'combination';
+    };
+    setOldNews({ ...oldNews, targetType: val });
+    const value =
+      val === 'campus'
+        ? 'colleges'
+        : val === 'school'
+        ? 'schools'
+        : val === 'department'
+        ? 'departments'
+        : val === 'combination'
+        ? 'combinations'
+        : '';
 
-    switch (value) {
-      case 'colleges':
-        setOldNews({ ...oldNews, targetType: 'campus' });
-        break;
-      case 'schools':
-        setOldNews({ ...oldNews, targetType: 'school' });
-        break;
-      case 'departments':
-        setOldNews({ ...oldNews, targetType: 'department' });
-        break;
-      case 'combinations':
-        setOldNews({ ...oldNews, targetType: 'class' });
-        break;
-      default:
-    }
-
-    let res = [];
-
+    let res: ILocation[] = [];
     for (const key in locations[value]) {
       if (Object.hasOwnProperty.call(locations[value], key) && key) {
         const element = locations[value][key];
-
         res = [...res, ...element];
+      } else {
+        console.log(`Key: ${key} has no associated value in locations`);
       }
     }
 
@@ -109,22 +136,28 @@ const EditNews: React.FC<IProps> = ({
   };
 
   useEffect(() => {
-    switch (oldNews.targetType) {
-      case 'campus':
-        handleTargetTypeChange({ target: { value: 'colleges' } });
-        break;
-      case 'school':
-        handleTargetTypeChange({ target: { value: 'schools' } });
-        break;
-      case 'department':
-        handleTargetTypeChange({ target: { value: 'departments' } });
-        break;
-      case 'class':
-        handleTargetTypeChange({ target: { value: 'combinations' } });
-        break;
-      default:
+    const val = oldNews?.targetType;
+    const value =
+      val === 'campus'
+        ? 'colleges'
+        : val === 'school'
+        ? 'schools'
+        : val === 'department'
+        ? 'departments'
+        : val === 'combination'
+        ? 'combinations'
+        : '';
+    let res: ILocation[] = [];
+    for (const key in locations[value]) {
+      if (key) {
+        const element = locations[value][key];
+        res = [...res, ...element];
+      } else {
+        console.log(`Key: ${key} has no associated value in locations`);
+      }
     }
-  }, []);
+    setTargets(res);
+  }, [newsId, oldNews]);
 
   return (
     <>
@@ -147,13 +180,32 @@ const EditNews: React.FC<IProps> = ({
             </div>
             <div className='form-control'>
               <label htmlFor='description'>Description</label>
-              <CKEditor
+              <Editor
+                editorState={oldNews.description}
+                toolbarClassName='toolbarClassName'
+                wrapperClassName='wrapperClassName'
+                editorClassName='editorClassName'
+                onEditorStateChange={(val) =>
+                  setOldNews({ ...oldNews, description: val })
+                }
+                toolbar={{
+                  options: ['inline', 'blockType', 'list', 'link'],
+                  inline: {
+                    inDropdown: false,
+                    className: undefined,
+                    component: undefined,
+                    dropdownClassName: undefined,
+                    options: ['bold', 'italic', 'underline'],
+                  },
+                }}
+              />
+              {/* <CKEditor
                 data={oldNews.description}
                 editor={classicEditor}
                 onChange={(_, editor) =>
                   setOldNews({ ...oldNews, description: editor.getData() })
                 }
-              />
+              /> */}
             </div>
             {/* <div className="form-control">
             <label htmlFor="addImage">

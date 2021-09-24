@@ -1,11 +1,15 @@
 import React, { useState, useContext, useEffect, FormEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { EditorState, convertToRaw } from 'draft-js';
 import * as locations from '@ur-news/locations';
+import { useHistory } from 'react-router-dom';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
 import Toast from '../components/Toast/Toast';
 import Modal from '../components/Modal/Modal';
+import styles from '../styles/Editor.module.css';
 import Spinner from '../components/Spinner/Spinner';
 import { GlobalContext } from '../context/GlobalState';
-import Editor from '../components/shared/Editor';
+// import Editor from '../components/shared/Editor';
 
 interface ILocation {
   text: string;
@@ -16,7 +20,7 @@ interface INews {
   title: string;
   target: string;
   targetType: string;
-  description: string;
+  description?: EditorState;
   addImage: boolean;
   addFile: boolean;
 }
@@ -28,7 +32,6 @@ const CreateNews: React.FC<{}> = () => {
     title: '',
     target: '',
     targetType: '',
-    description: '<p>News description</p>',
     addImage: false,
     addFile: false,
   });
@@ -47,7 +50,10 @@ const CreateNews: React.FC<{}> = () => {
       payload.append('title', state.title);
       payload.append('target', state.target);
       payload.append('targetType', state.targetType);
-      payload.append('description', state.description);
+      payload.append(
+        'description',
+        draftToHtml(convertToRaw(state.description.getCurrentContent()))
+      );
       if (state.addImage && img) payload.append('img', img);
       if (state.addFile && file) payload.append('file', file);
 
@@ -60,29 +66,22 @@ const CreateNews: React.FC<{}> = () => {
   };
 
   const handleTargetTypeChange = (e: FormEvent<HTMLSelectElement>) => {
-    const { value } = e.target as typeof e.target & {
-      value: 'colleges' | 'schools' | 'departments' | 'combinations';
+    const { value: val } = e.target as typeof e.target & {
+      value: 'campus' | 'school' | 'department' | 'combination';
     };
-    switch (value) {
-      case 'colleges':
-        setState({ ...state, targetType: 'campus' });
-        break;
-      case 'schools':
-        setState({ ...state, targetType: 'school' });
-        break;
-      case 'departments':
-        setState({ ...state, targetType: 'department' });
-        break;
-      case 'combinations':
-        setState({ ...state, targetType: 'class' });
-        break;
-      default:
-        console.log('Unkown targetType');
-        break;
-    }
+    setState({ ...state, targetType: val });
+    const value =
+      val === 'campus'
+        ? 'colleges'
+        : val === 'school'
+        ? 'schools'
+        : val === 'department'
+        ? 'departments'
+        : val === 'combination'
+        ? 'combinations'
+        : '';
 
     let res: ILocation[] = [];
-
     for (const key in locations[value]) {
       if (Object.hasOwnProperty.call(locations[value], key) && key) {
         const element = locations[value][key];
@@ -112,10 +111,36 @@ const CreateNews: React.FC<{}> = () => {
           </div>
           <div className='form-control'>
             <label htmlFor='description'>Description</label>
-            <Editor
-              onChange={(value) => setState({ ...state, description: value })}
+            <div className={styles.editor}>
+              <Editor
+                editorState={state.description}
+                toolbarClassName='toolbarClassName'
+                wrapperClassName='wrapperClassName'
+                editorClassName='editorClassName'
+                onEditorStateChange={(val) =>
+                  setState({ ...state, description: val })
+                }
+                toolbar={{
+                  options: ['inline', 'blockType', 'list', 'link'],
+                  inline: {
+                    inDropdown: false,
+                    className: undefined,
+                    component: undefined,
+                    dropdownClassName: undefined,
+                    options: ['bold', 'italic', 'underline'],
+                  },
+                }}
+              />
+            </div>
+            {/* <Editor
+              onChange={(value) =>
+                setState({
+                  ...state,
+                  description: value,
+                })
+              }
               value={state.description}
-            />
+            /> */}
           </div>
           <div className='form-control'>
             <label htmlFor='addImage'>
@@ -181,10 +206,10 @@ const CreateNews: React.FC<{}> = () => {
               <option value='' disabled>
                 Select your Audience type
               </option>
-              <option value='colleges'>All the campus</option>
-              <option value='schools'>Specific school</option>
-              <option value='departments'>Specific department</option>
-              <option value='combinations'>Specific combination</option>
+              <option value='campus'>All the campus</option>
+              <option value='school'>Specific school</option>
+              <option value='department'>Specific department</option>
+              <option value='combination'>Specific combination</option>
             </select>
           </div>
           <div className='form-control'>
