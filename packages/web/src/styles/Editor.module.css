@@ -1,0 +1,8 @@
+.editor {
+  border: 1px solid var(--dark-color-light);
+  min-height: 300px;
+}
+
+.editor:focus-within {
+  border-color: var(--dark-color);
+}

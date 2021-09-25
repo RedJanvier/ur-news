@@ -9,7 +9,9 @@
     "dev": "babel-node src/app",
     "build": "babel src --out-dir build",
     "test": "jest src/__tests__/index.test.js --env=jsdom --verbose=false --forceExit",
-    "start": "nodemon --exec babel-node src/app"
+    "start:js": "nodemon --exec babel-node src/app",
+    "start:ts": "ts-node src/app",
+    "start": "yarn run start:js"
   },
   "keywords": [],
   "author": "RedJanvier",
@@ -43,5 +45,8 @@
     "socket.io": "^3.1.0",
     "socketio-jwt-auth": "^0.2.1",
     "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "ts-node": "^10.2.1"
   }
 }

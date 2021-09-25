@@ -1,6 +1,6 @@
 import moment from 'moment';
 import ReactEmoji from 'react-emoji';
-import socket from 'socket.io-client';
+import { io as socket } from 'socket.io-client';
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { GlobalContext } from '../../../context/GlobalState';
 import { BASE_URL, NODE_ENV } from '../../../constants';
@@ -30,7 +30,7 @@ const Messages = () => {
   return (
     <>
       <ul className='chats'>
-        {chatsPending && <Spinner color='default' />}
+        {chatsPending && <Spinner color />}
         {!chats.length && !chatsPending && <p>No messages yet!</p>}
         {chats.map((chat) => (
           <Message chat={chat} userId={userId} />
@@ -76,6 +76,7 @@ const ChatPane = () => {
       const success = await fetchChats();
       if (success) scrollTo(bottom);
     })();
+
     const io = socket(BASE_URL, {
       query: { auth_token: token },
       secure: NODE_ENV === 'production',
@@ -88,7 +89,9 @@ const ChatPane = () => {
         scrollTo(bottom);
       }
     });
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -112,7 +115,7 @@ const ChatPane = () => {
         {sent && (
           <>
             <i
-              class='fa fa-check-circle'
+              className='fa fa-check-circle'
               style={{ color: 'var(--secondary-color)' }}
             ></i>
             <span style={{ color: 'var(--secondary-color)' }}>

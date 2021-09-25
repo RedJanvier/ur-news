@@ -1,68 +1,93 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import classicEditor from '@ckeditor/ckeditor5-build-classic';
+import React, { useState, useContext, useEffect, FormEvent } from 'react';
+import { EditorState, convertToRaw } from 'draft-js';
 import * as locations from '@ur-news/locations';
+import { useHistory } from 'react-router-dom';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
 import Toast from '../components/Toast/Toast';
 import Modal from '../components/Modal/Modal';
+import styles from '../styles/Editor.module.css';
 import Spinner from '../components/Spinner/Spinner';
 import { GlobalContext } from '../context/GlobalState';
+// import Editor from '../components/shared/Editor';
 
-const CreateNews = () => {
+interface ILocation {
+  text: string;
+  abbr: string;
+}
+
+interface INews {
+  title: string;
+  target: string;
+  targetType: string;
+  description?: EditorState;
+  addImage: boolean;
+  addFile: boolean;
+}
+
+const CreateNews: React.FC<{}> = () => {
   const { pending, error, createNews } = useContext(GlobalContext);
   const history = useHistory();
-  const [state, setState] = useState({
+  const [state, setState] = useState<INews>({
     title: '',
     target: '',
     targetType: '',
-    description: '<p>News description</p>',
     addImage: false,
     addFile: false,
   });
-  const [targets, setTargets] = useState([]);
-  const [img, setImg] = useState({});
-  const [file, setFile] = useState({});
+  const [targets, setTargets] = useState<ILocation[]>([]);
+  const [img, setImg] = useState<Blob | null>(null);
+  const [file, setFile] = useState<Blob | null>(null);
   useEffect(() => {
     document.title = 'Create News - UR News Post';
+
+    // eslint-disable-next-line
   }, []);
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const { addFile, addImage } = state;
-    const payload = new FormData();
-    for (const property in state) {
-      payload.append(property, state[property]);
+    try {
+      const payload = new FormData();
+      payload.append('title', state.title);
+      payload.append('target', state.target);
+      payload.append('targetType', state.targetType);
+      payload.append(
+        'description',
+        draftToHtml(convertToRaw(state.description.getCurrentContent()))
+      );
+      if (state.addImage && img) payload.append('img', img);
+      if (state.addFile && file) payload.append('file', file);
+
+      const success = await createNews(payload);
+      if (success) return history.push('/home');
+      console.log('Unkown error while creating news');
+    } catch (error) {
+      console.log(error);
     }
-    if (addImage) payload.append('img', img);
-    if (addFile) payload.append('file', file);
-    const success = await createNews(payload);
-    if (success) return history.push('/home');
   };
 
-  const handleTargetTypeChange = (e) => {
-    const { value } = e.target;
-    switch (value) {
-      case 'colleges':
-        setState({ ...state, targetType: 'campus' });
-        break;
-      case 'schools':
-        setState({ ...state, targetType: 'school' });
-        break;
-      case 'departments':
-        setState({ ...state, targetType: 'department' });
-        break;
-      case 'combinations':
-        setState({ ...state, targetType: 'class' });
-        break;
-      default:
-    }
+  const handleTargetTypeChange = (e: FormEvent<HTMLSelectElement>) => {
+    const { value: val } = e.target as typeof e.target & {
+      value: 'campus' | 'school' | 'department' | 'combination';
+    };
+    setState({ ...state, targetType: val });
+    const value =
+      val === 'campus'
+        ? 'colleges'
+        : val === 'school'
+        ? 'schools'
+        : val === 'department'
+        ? 'departments'
+        : val === 'combination'
+        ? 'combinations'
+        : '';
 
-    let res = [];
-
+    let res: ILocation[] = [];
     for (const key in locations[value]) {
       if (Object.hasOwnProperty.call(locations[value], key) && key) {
         const element = locations[value][key];
-
         res = [...res, ...element];
+      } else {
+        console.log(`Key: ${key} has no associated value in locations`);
       }
     }
 
@@ -86,13 +111,36 @@ const CreateNews = () => {
           </div>
           <div className='form-control'>
             <label htmlFor='description'>Description</label>
-            <CKEditor
-              data={state.description}
-              editor={classicEditor}
-              onChange={(_, editor) =>
-                setState({ ...state, description: editor.getData() })
+            <div className={styles.editor}>
+              <Editor
+                editorState={state.description}
+                toolbarClassName='toolbarClassName'
+                wrapperClassName='wrapperClassName'
+                editorClassName='editorClassName'
+                onEditorStateChange={(val) =>
+                  setState({ ...state, description: val })
+                }
+                toolbar={{
+                  options: ['inline', 'blockType', 'list', 'link'],
+                  inline: {
+                    inDropdown: false,
+                    className: undefined,
+                    component: undefined,
+                    dropdownClassName: undefined,
+                    options: ['bold', 'italic', 'underline'],
+                  },
+                }}
+              />
+            </div>
+            {/* <Editor
+              onChange={(value) =>
+                setState({
+                  ...state,
+                  description: value,
+                })
               }
-            />
+              value={state.description}
+            /> */}
           </div>
           <div className='form-control'>
             <label htmlFor='addImage'>
@@ -115,6 +163,7 @@ const CreateNews = () => {
               <input
                 type='file'
                 name='image'
+                // @ts-ignore: Object is possibly 'null'.
                 onChange={(e) => setImg(e.target.files[0])}
                 placeholder='News image'
                 required
@@ -140,6 +189,7 @@ const CreateNews = () => {
               <input
                 type='file'
                 name='file'
+                // @ts-ignore: Object is possibly 'null'.
                 onChange={(e) => setFile(e.target.files[0])}
                 placeholder='News file'
                 required
@@ -156,10 +206,10 @@ const CreateNews = () => {
               <option value='' disabled>
                 Select your Audience type
               </option>
-              <option value='colleges'>All the campus</option>
-              <option value='schools'>Specific school</option>
-              <option value='departments'>Specific department</option>
-              <option value='combinations'>Specific combination</option>
+              <option value='campus'>All the campus</option>
+              <option value='school'>Specific school</option>
+              <option value='department'>Specific department</option>
+              <option value='combination'>Specific combination</option>
             </select>
           </div>
           <div className='form-control'>
@@ -172,17 +222,13 @@ const CreateNews = () => {
               <option value='' disabled>
                 Select your Audience
               </option>
-              {targets.map((t) => (
+              {targets.map((t: ILocation) => (
                 <option value={t.abbr}>{t.text}</option>
               ))}
             </select>
           </div>
           <div className='form-control'>
-            <button
-              onClick={handleSubmit}
-              className='btn'
-              disabled={pending ? 'disabled' : ''}
-            >
+            <button onClick={handleSubmit} className='btn' disabled={pending}>
               {pending ? <Spinner /> : 'Create'}
             </button>
           </div>

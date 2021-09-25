@@ -1,8 +1,7 @@
 import React from 'react';
-
 import './Spinner.css';
 
-const Spinner = ({ color }: { color: boolean }) => {
+const Spinner: React.FC<{ color?: boolean }> = ({ color }) => {
   const styles = color
     ? { color: 'var(--secondary-color)', background: 'var(--secondary-color)' }
     : {};
