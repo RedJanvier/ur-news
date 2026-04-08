@@ -26,3 +26,6 @@ tmp
 /packages/**/build
 /packages/web/src/index.js
 /packages/server/src/utils/errorRespones.js
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat

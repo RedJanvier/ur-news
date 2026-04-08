@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "module": "esnext",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "strict": false,
     "outDir": "./out",
     "declaration": true,

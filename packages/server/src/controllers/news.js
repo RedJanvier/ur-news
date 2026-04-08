@@ -9,7 +9,7 @@ import { asyncHandler, ErrorResponse } from '../utils';
 // @access    Private
 export const readAll = asyncHandler(async (req, res) => {
   const user = await userServices.findOne({ _id: req.decoded.userId });
-  if (!user) throw new ErrorResponse('Please sign up to read news!', 404);
+  if (!user) throw new ErrorResponse('Please sign in to read news!', 404);
   
   const { campus, school, department, class: _class } = user;
   const news = await newsServices.findAll({
