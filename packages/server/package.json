@@ -11,7 +11,8 @@
     "test": "jest src/__tests__/index.test.js --env=jsdom --verbose=false --forceExit",
     "start:js": "nodemon --exec babel-node src/app",
     "start:ts": "ts-node src/app",
-    "start": "yarn run start:js"
+    "start": "yarn run start:js",
+    "seed": "babel-node src/seeds/seed.js"
   },
   "keywords": [],
   "author": "RedJanvier",

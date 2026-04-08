@@ -3,6 +3,9 @@ import chatControllers from '../controllers/chat';
 import { auth } from '../middlewares';
 import news from './news';
 import users from './users';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 const router = Router();
 
